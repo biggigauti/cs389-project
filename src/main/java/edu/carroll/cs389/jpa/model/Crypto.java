@@ -18,14 +18,14 @@ public class Crypto {
     private Long id;
 
     //foreign key
-    @Column(name = "username")
-    private String username;
+    @Column(name = "userId")
+    private String userId;
 
     @Column(name = "ticker")
     private String ticker;
 
     @Column(name = "buy_price")
-    private float buy_price;
+    private float buyPrice;
 
     //@Column(name = "current_price")
     //private float current_price;
@@ -41,12 +41,12 @@ public class Crypto {
         this.id = id;
     }
 
-    public String getUsername() {
-        return username;
+    public String getUserId() {
+        return userId;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
 
     public String getTicker() {
@@ -57,12 +57,12 @@ public class Crypto {
         this.ticker = ticker;
     }
 
-    public float getBuy_price() {
-        return buy_price;
+    public float getBuyPrice() {
+        return buyPrice;
     }
 
-    public void setBuy_price(float buy_price) {
-        this.buy_price = buy_price;
+    public void setBuyPrice(float buyPrice) {
+        this.buyPrice = buyPrice;
     }
 
     public float getShares() {
@@ -73,14 +73,16 @@ public class Crypto {
         this.shares = shares;
     }
 
-    public float getTotal_value() {
-        return total_value;
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Crypto crypto = (Crypto) o;
+        return Float.compare(crypto.buyPrice, buyPrice) == 0 && Float.compare(crypto.shares, shares) == 0 && Objects.equals(ticker, crypto.ticker);
     }
 
-    public void setTotal_value(float total_value) {
-        this.total_value = total_value;
+    @Override
+    public int hashCode() {
+        return Objects.hash(ticker, buyPrice, shares);
     }
-
-    @Column(name = "total_value")
-    private float total_value;
 }

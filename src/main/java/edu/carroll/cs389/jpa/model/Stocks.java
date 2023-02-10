@@ -18,11 +18,18 @@ public class Stocks {
     private Long id;
 
     //foreign key
-    @Column(name = "username")
-    private String username;
+    @Column(name = "user_id")
+    private String userId;
 
     @Column(name = "ticker")
     private String ticker;
+
+    @Column(name = "buy_price")
+    private Float buyPrice;
+
+
+    @Column(name = "shares")
+    private float shares;
 
     public Long getId() {
         return id;
@@ -32,12 +39,12 @@ public class Stocks {
         this.id = id;
     }
 
-    public String getUsername() {
-        return username;
+    public String getUserId() {
+        return userId;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
 
     public String getTicker() {
@@ -48,20 +55,12 @@ public class Stocks {
         this.ticker = ticker;
     }
 
-    public float getBuy_price() {
-        return buy_price;
+    public Float getBuyPrice() {
+        return buyPrice;
     }
 
-    public void setBuy_price(float buy_price) {
-        this.buy_price = buy_price;
-    }
-
-    public float getDividend_yield() {
-        return dividend_yield;
-    }
-
-    public void setDividend_yield(float dividend_yield) {
-        this.dividend_yield = dividend_yield;
+    public void setBuyPrice(Float buyPrice) {
+        this.buyPrice = buyPrice;
     }
 
     public float getShares() {
@@ -72,26 +71,16 @@ public class Stocks {
         this.shares = shares;
     }
 
-    public float getTotal_value() {
-        return total_value;
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Stocks stocks = (Stocks) o;
+        return Float.compare(stocks.shares, shares) == 0 && Objects.equals(ticker, stocks.ticker) && Objects.equals(buyPrice, stocks.buyPrice);
     }
 
-    public void setTotal_value(float total_value) {
-        this.total_value = total_value;
+    @Override
+    public int hashCode() {
+        return Objects.hash(ticker, buyPrice, shares);
     }
-
-    @Column(name = "buy_price")
-    private float buy_price;
-
-    //@Column(name = "current_price")
-    //private float current_price;
-
-    @Column(name = "dividend_yield")
-    private float dividend_yield;
-
-    @Column(name = "shares")
-    private float shares;
-
-    @Column(name = "total_value")
-    private float total_value;
 }
