@@ -6,8 +6,24 @@
 </head>
 <body>
 
-    <input type="text" id="Name" name="Name">
-    <a href="/portfolio">Login</a>
+<input type="text" id="name" name="name">
+<a id="link" href="/portfolio">Login</a>
+
+<!---
+<script>
+    const name = document.getElementById("name").value;
+    const redirect = document.getElementById("link");
+    redirect.innerHTML = `<a href="/portfolio?name=${name}">Login</a>`;
+</script>
+
+<script>
+    const name = document.getElementsByName("name").value;
+    const searchBar = `<input type="text" id="name" name="name">`;
+    const htmlCode = `<a href="/portfolio?name=${name}">Login</a>`;
+    document.body.innerHTML = searchBar;
+    document.body.innerHTML = htmlCode;
+</script>
+--->
 
 </body>
 </html>
