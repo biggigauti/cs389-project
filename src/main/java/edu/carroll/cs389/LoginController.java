@@ -12,8 +12,12 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 @Controller
 public class LoginController {
+    private static final Logger log = LoggerFactory.getLogger(LoginController.class);
     private final LoginService loginService;
 
     public LoginController(LoginService loginService) {
@@ -22,6 +26,7 @@ public class LoginController {
 
     @GetMapping("/login")
     public String loginGet(Model model) {
+        log.info("login");
         model.addAttribute("loginForm", new LoginForm());
         return "login";
     }
@@ -29,6 +34,7 @@ public class LoginController {
     @PostMapping("/login")
     public String loginPost(@Valid @ModelAttribute LoginForm loginForm, BindingResult result, RedirectAttributes attrs) {
         if (result.hasErrors()) {
+            log.info("login .hasErrors()");
             return "login";
         }
         if (!loginService.validateUser(loginForm)) {
@@ -36,12 +42,6 @@ public class LoginController {
             return "login";
         }
         attrs.addAttribute("username", loginForm.getUsername());
-        return "redirect:/loginSuccess";
-    }
-
-    //Successful login. Redirect to portfolio page.
-    @GetMapping("/portfolio")
-    public String loginPortfolio() {
-        return "portfolio";
+        return "redirect:/portfolio";
     }
 }
