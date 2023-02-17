@@ -6,8 +6,11 @@
 </head>
 <body>
 
-<input type="text" id="name" name="name">
-<a id="link" href="/portfolio">Login</a>
+<h1>Login</h1>
+<form action="#" th:action="@{/login}" th:object="${loginForm}" method="post">
+    <input type="text" th:field="*{username}" placeholder="Username"/><br/>
+    <button type="submit">Login</button>
+</form>
 
 <!---
 <script>
