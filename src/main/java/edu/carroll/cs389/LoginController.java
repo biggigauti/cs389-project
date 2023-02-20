@@ -26,7 +26,6 @@ public class LoginController {
 
     @GetMapping("/login")
     public String loginGet(Model model) {
-        log.info("login");
         model.addAttribute("loginForm", new LoginForm());
         return "login";
     }
@@ -34,7 +33,7 @@ public class LoginController {
     @PostMapping("/login")
     public String loginPost(@Valid @ModelAttribute LoginForm loginForm, BindingResult result, RedirectAttributes attrs) {
         if (result.hasErrors()) {
-            log.info("login .hasErrors()");
+            log.info("loginPost: User '{}' could not be validated.", loginForm.getUsername());
             return "login";
         }
         if (!loginService.validateUser(loginForm)) {
@@ -42,6 +41,7 @@ public class LoginController {
             return "login";
         }
         attrs.addAttribute("username", loginForm.getUsername());
+        log.info("loginPost: User '{}' was redirected to /portfolio.", loginForm.getUsername());
         return "redirect:/portfolio";
     }
 }
