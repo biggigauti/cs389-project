@@ -5,10 +5,14 @@ import edu.carroll.cs389.jpa.repo.LoginRepository;
 import edu.carroll.cs389.web.form.LoginForm;
 import org.springframework.stereotype.Service;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.util.List;
 
 @Service
 public class LoginServiceImpl implements LoginService {
+    private static final Logger log = LoggerFactory.getLogger(LoginServiceImpl.class);
     private final LoginRepository loginRepo;
 
     public LoginServiceImpl(LoginRepository loginRepo) {
@@ -23,13 +27,17 @@ public class LoginServiceImpl implements LoginService {
      */
     @Override
     public boolean validateUser(LoginForm loginForm) {
+        log.info("validateUser: User '{}' tried to log in.", loginForm.getUsername());
         // Always do the lookup in a case-insensitive manner (lower-casing the data).
         List<Login> users = loginRepo.findByUsernameIgnoreCase(loginForm.getUsername());
 
         // We expect 0 or 1, so if we get more than 1, bail out as this is an error we don't deal with properly.
-        if (users.size() >= 1)
+        if (users.size() > 1) {
+            log.info("validateUser: Username '{}' returned more than one record.", loginForm.getUsername());
             return false;
+        }
 
+        log.info("validateUser: User '{}' successfully logged in.", loginForm.getUsername());
         return true;
     }
 }

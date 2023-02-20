@@ -12,7 +12,7 @@ import org.springframework.stereotype.Component;
 // method.
 @Component
 public class DbInit {
-    private static final String defaultUsername = "testing";
+    private static final String defaultUsername = "databaseInitUsername";
 
     private final LoginRepository loginRepo;
 
