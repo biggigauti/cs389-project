@@ -13,7 +13,6 @@ public class PortfolioController {
     private static final Logger log = LoggerFactory.getLogger(PortfolioController.class);
     @GetMapping("/portfolio")
     public String index() {
-        log.info("index");
         return "portfolio";
     }
 }
