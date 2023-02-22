@@ -42,6 +42,7 @@ public class LoginController {
         }
         attrs.addAttribute("username", loginForm.getUsername());
         log.info("loginPost: User '{}' was redirected to /portfolio.", loginForm.getUsername());
+
         return "redirect:/portfolio";
     }
 }
