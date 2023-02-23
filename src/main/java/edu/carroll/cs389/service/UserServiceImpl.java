@@ -5,10 +5,12 @@ import edu.carroll.cs389.jpa.repo.LoginRepository;
 import edu.carroll.cs389.web.form.LoginForm;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-public class UserServiceImpl {
+@Service
+public class UserServiceImpl implements UserService {
     private static final Logger log = LoggerFactory.getLogger(UserServiceImpl.class);
 
     private final LoginRepository loginRepo;
