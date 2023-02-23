@@ -3,29 +3,30 @@ package edu.carroll.cs389.service;
 import edu.carroll.cs389.jpa.model.Login;
 import edu.carroll.cs389.jpa.repo.LoginRepository;
 import edu.carroll.cs389.web.form.LoginForm;
-import org.springframework.stereotype.Service;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.List;
 
-@Service
-public class LoginServiceImpl implements LoginService {
-    private static final Logger log = LoggerFactory.getLogger(LoginServiceImpl.class);
+public class UserServiceImpl {
+    private static final Logger log = LoggerFactory.getLogger(UserServiceImpl.class);
+
     private final LoginRepository loginRepo;
 
-    public LoginServiceImpl(LoginRepository loginRepo) {
+    public UserServiceImpl(LoginRepository loginRepo) {
         this.loginRepo = loginRepo;
     }
 
-    /**
-     * Given a loginForm, determine if the information provided is valid, and the user exists in the system.
-     *
-     * @param loginForm - Data containing user login information, such as username and password.
-     * @return true if data exists and matches what's on record, false otherwise
-     */
-    @Override
+    public void loadData(String username) {
+        // If the user doesn't exist in the database, populate it.
+        final List<Login> defaultUsers = loginRepo.findByUsernameIgnoreCase(username);
+        if (defaultUsers.isEmpty()) {
+            Login newUser = new Login();
+            newUser.setUsername(username);
+            loginRepo.save(newUser);
+        }
+    }
+
     public boolean validateUser(LoginForm loginForm) {
         log.info("validateUser: User '{}' tried to log in.", loginForm.getUsername());
         // Always do the lookup in a case-insensitive manner (lower-casing the data).

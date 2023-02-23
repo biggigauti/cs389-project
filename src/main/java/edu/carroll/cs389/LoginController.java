@@ -1,6 +1,6 @@
 package edu.carroll.cs389;
 
-import edu.carroll.cs389.service.LoginService;
+import edu.carroll.cs389.service.UserService;
 import edu.carroll.cs389.web.form.LoginForm;
 import jakarta.validation.Valid;
 import org.springframework.stereotype.Controller;
@@ -18,11 +18,12 @@ import org.slf4j.LoggerFactory;
 @Controller
 public class LoginController {
     private static final Logger log = LoggerFactory.getLogger(LoginController.class);
-    private final LoginService loginService;
+    private final UserService userService;
 
-    public LoginController(LoginService loginService) {
-        this.loginService = loginService;
+    public LoginController(UserService userService) {
+        this.userService = userService;
     }
+
 
     @GetMapping("/login")
     public String loginGet(Model model) {
@@ -36,7 +37,7 @@ public class LoginController {
             log.info("loginPost: User '{}' could not be validated.", loginForm.getUsername());
             return "login";
         }
-        if (!loginService.validateUser(loginForm)) {
+        if (!userService.validateUser(loginForm)) {
             result.addError(new ObjectError("globalError", "Username and password do not match known users"));
             return "login";
         }
