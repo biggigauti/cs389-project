@@ -8,6 +8,12 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
+/**
+ * The Stocks class is a JPA model that interacts with our database. Rather than creating the
+ * tables and rows ourselves, this class takes care of that and represents the table.
+ * This table stores an entry's UID, userId associated with the user that owns this position,
+ * the stock's ticker symbol, the buy price, and the amount of shares associated with the position.
+ */
 @Entity
 @Table(name = "stocks")
 public class Stocks {

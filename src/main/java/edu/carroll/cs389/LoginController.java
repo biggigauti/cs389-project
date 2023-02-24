@@ -15,6 +15,11 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ * The LoginController routes HTTP requests for /login to the login page or the login html template.
+ *
+ * This class handles "Get" and "Post" requests.
+ */
 @Controller
 public class LoginController {
     private static final Logger log = LoggerFactory.getLogger(LoginController.class);
@@ -31,19 +36,29 @@ public class LoginController {
         return "login";
     }
 
+    // PostMapping from the /login page.
+    // The @Valid annotation and the BindingResult check for any errors
     @PostMapping("/login")
     public String loginPost(@Valid @ModelAttribute LoginForm loginForm, BindingResult result, RedirectAttributes attrs) {
+        // Reroute the user to the login page if @Valid and BindingResult find any errors.
         if (result.hasErrors()) {
             log.info("loginPost: User '{}' could not be validated.", loginForm.getUsername());
             return "login";
         }
+
+        // If the user doesn't exist, call create user and reroute the user to the portfolio page.
+        // The user will now be logged in.
         if (!userService.userExists(loginForm)) {
-            userService.loadData(loginForm.getUsername());
+            userService.createUser(loginForm.getUsername());
             return "redirect:/portfolio";
         }
+
+        // Attrs allows us to send information to the following page.
+        // In this case we supply the following page with the user's username.
         attrs.addAttribute("username", loginForm.getUsername());
         log.info("loginPost: User '{}' was redirected to /portfolio.", loginForm.getUsername());
 
-        return "redirect:/portfolio";
+        //If none of the conditions are met above, reroute to the login page.
+        return "login";
     }
 }

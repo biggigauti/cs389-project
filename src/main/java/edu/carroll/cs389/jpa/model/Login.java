@@ -8,6 +8,11 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
+/**
+ * The Login class is a JPA model that interacts with our database. Rather than creating the
+ * tables and rows ourselves, this class takes care of that and represents the table.
+ * This table stores the user's UID and username.
+ */
 @Entity
 @Table(name = "login")
 public class Login {
