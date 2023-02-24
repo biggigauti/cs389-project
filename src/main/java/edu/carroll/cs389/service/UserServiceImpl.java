@@ -1,8 +1,8 @@
 package edu.carroll.cs389.service;
 
-import edu.carroll.cs389.jpa.model.Login;
-import edu.carroll.cs389.jpa.repo.LoginRepository;
-import edu.carroll.cs389.web.form.LoginForm;
+import edu.carroll.cs389.jpa.model.User;
+import edu.carroll.cs389.jpa.repo.UserRepository;
+import edu.carroll.cs389.web.form.UserForm;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -17,9 +17,9 @@ import java.util.List;
 public class UserServiceImpl implements UserService {
     private static final Logger log = LoggerFactory.getLogger(UserServiceImpl.class);
 
-    private final LoginRepository loginRepo;
+    private final UserRepository loginRepo;
 
-    public UserServiceImpl(LoginRepository loginRepo) {
+    public UserServiceImpl(UserRepository loginRepo) {
         this.loginRepo = loginRepo;
     }
 
@@ -29,10 +29,10 @@ public class UserServiceImpl implements UserService {
      * @param username
      */
     public void createUser(String username) {
-        final List<Login> defaultUsers = loginRepo.findByUsernameIgnoreCase(username);
+        final List<User> defaultUsers = loginRepo.findByUsernameIgnoreCase(username);
         // If there are no users with that username...
         if (defaultUsers.isEmpty()) {
-            Login newUser = new Login();
+            User newUser = new User();
             newUser.setUsername(username);
             loginRepo.save(newUser);
         }
@@ -41,28 +41,28 @@ public class UserServiceImpl implements UserService {
     /**
      * Checks if the user exists based on the username retrieved from the LoginForm.
      * Return true if the user exists, return false if it doesn't.
-     * @param loginForm - Data containing user login information, such as username.
+     * @param userForm - Data containing user login information, such as username.
      * @return true if the user exists, false if the user does not exist.
      */
-    public boolean userExists(LoginForm loginForm) {
-        log.info("validateUser: User '{}' tried to log in.", loginForm.getUsername());
+    public boolean userExists(UserForm userForm) {
+        log.info("validateUser: User '{}' tried to log in.", userForm.getUsername());
         // Always do the lookup in a case-insensitive manner (lower-casing the data).
-        List<Login> users = loginRepo.findByUsernameIgnoreCase(loginForm.getUsername());
+        List<User> users = loginRepo.findByUsernameIgnoreCase(userForm.getUsername());
 
         // If the 'users' list returns 1 or more, the user exists. Return true.
         if (users.size() > 1) {
-            log.info("validateUser: Username '{}' returned more than one record.", loginForm.getUsername());
+            log.info("validateUser: Username '{}' returned more than one record.", userForm.getUsername());
             return true;
         }
 
         // If the 'users' list returns 0, the user does not exist. Return false.
         if (users.size() == 0) {
-            log.info("userExists: Username '{}' does not exist.", loginForm.getUsername());
+            log.info("userExists: Username '{}' does not exist.", userForm.getUsername());
             return false;
         }
 
         // Else if users.size() == 1 just return true
-        log.info("validateUser: User '{}' successfully logged in.", loginForm.getUsername());
+        log.info("validateUser: User '{}' successfully logged in.", userForm.getUsername());
         return true;
     }
 }

@@ -14,8 +14,8 @@ import jakarta.persistence.Table;
  * This table stores the user's UID and username.
  */
 @Entity
-@Table(name = "login")
-public class Login {
+@Table(name = "user")
+public class User {
     private static final long serialVersionUID = 1L;
 
     @Id
@@ -45,8 +45,8 @@ public class Login {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Login login = (Login) o;
-        return Objects.equals(username, login.username);
+        User user = (User) o;
+        return Objects.equals(username, user.username);
     }
 
     @Override

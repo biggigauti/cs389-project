@@ -1,7 +1,7 @@
 package edu.carroll.cs389;
 
 import edu.carroll.cs389.service.UserService;
-import edu.carroll.cs389.web.form.LoginForm;
+import edu.carroll.cs389.web.form.UserForm;
 import jakarta.validation.Valid;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -32,31 +32,31 @@ public class LoginController {
 
     @GetMapping("/login")
     public String loginGet(Model model) {
-        model.addAttribute("loginForm", new LoginForm());
+        model.addAttribute("loginForm", new UserForm());
         return "login";
     }
 
     // PostMapping from the /login page.
     // The @Valid annotation and the BindingResult check for any errors
     @PostMapping("/login")
-    public String loginPost(@Valid @ModelAttribute LoginForm loginForm, BindingResult result, RedirectAttributes attrs) {
+    public String loginPost(@Valid @ModelAttribute UserForm userForm, BindingResult result, RedirectAttributes attrs) {
         // Reroute the user to the login page if @Valid and BindingResult find any errors.
         if (result.hasErrors()) {
-            log.info("loginPost: User '{}' could not be validated.", loginForm.getUsername());
+            log.info("loginPost: User '{}' could not be validated.", userForm.getUsername());
             return "login";
         }
 
         // If the user doesn't exist, call create user and reroute the user to the portfolio page.
         // The user will now be logged in.
-        if (!userService.userExists(loginForm)) {
-            userService.createUser(loginForm.getUsername());
+        if (!userService.userExists(userForm)) {
+            userService.createUser(userForm.getUsername());
             return "redirect:/portfolio";
         }
 
         // Attrs allows us to send information to the following page.
         // In this case we supply the following page with the user's username.
-        attrs.addAttribute("username", loginForm.getUsername());
-        log.info("loginPost: User '{}' was redirected to /portfolio.", loginForm.getUsername());
+        attrs.addAttribute("username", userForm.getUsername());
+        log.info("loginPost: User '{}' was redirected to /portfolio.", userForm.getUsername());
 
         //If none of the conditions are met above, user exists, redirect to /portfolio page.
         return "redirect:/portfolio";

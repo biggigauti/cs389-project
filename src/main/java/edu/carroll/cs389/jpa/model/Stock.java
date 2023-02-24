@@ -15,8 +15,8 @@ import jakarta.persistence.Table;
  * the stock's ticker symbol, the buy price, and the amount of shares associated with the position.
  */
 @Entity
-@Table(name = "stocks")
-public class Stocks {
+@Table(name = "stock")
+public class Stock {
     private static final long serialVersionUID = 1L;
 
     @Id
@@ -35,7 +35,7 @@ public class Stocks {
 
 
     @Column(name = "shares")
-    private float shares;
+    private Float shares;
 
     public Long getId() {
         return id;
@@ -81,8 +81,8 @@ public class Stocks {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Stocks stocks = (Stocks) o;
-        return Float.compare(stocks.shares, shares) == 0 && Objects.equals(ticker, stocks.ticker) && Objects.equals(buyPrice, stocks.buyPrice);
+        Stock stock = (Stock) o;
+        return Float.compare(stock.shares, shares) == 0 && Objects.equals(ticker, stock.ticker) && Objects.equals(buyPrice, stock.buyPrice);
     }
 
     @Override

@@ -1,6 +1,6 @@
 package edu.carroll.cs389.service;
 
-import edu.carroll.cs389.web.form.LoginForm;
+import edu.carroll.cs389.web.form.UserForm;
 
 /**
  * The UserService Interface defines the business operations we want to execute.
@@ -12,7 +12,7 @@ public interface UserService {
      * @param form - Data containing user login information, such as username and password.
      * @return true if data exists and matches what's on record, false otherwise
      */
-    boolean userExists(LoginForm form);
+    boolean userExists(UserForm form);
 
     /**
      * Given a username, double check that it doesn't exist. If it doesn't,

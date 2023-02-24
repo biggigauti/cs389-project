@@ -10,7 +10,7 @@ import jakarta.validation.constraints.Size;
  * We have two validation annotations in here, one ensures that the field is not empty (NotNull)
  * and the other ensures that the field includes at least x characters (Size).
  */
-public class LoginForm {
+public class UserForm {
     @NotNull
     @Size(min = 6, message = "Username must be at least 6 characters long") //Modify later?
     private String username;
