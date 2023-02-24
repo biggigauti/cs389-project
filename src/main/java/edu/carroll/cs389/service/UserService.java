@@ -8,7 +8,7 @@ public interface UserService {
      * @param form - Data containing user login information, such as username and password.
      * @return true if data exists and matches what's on record, false otherwise
      */
-    boolean validateUser(LoginForm form);
+    boolean userExists(LoginForm form);
 
     /**
      * desc

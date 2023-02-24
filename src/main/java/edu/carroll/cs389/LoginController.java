@@ -37,9 +37,9 @@ public class LoginController {
             log.info("loginPost: User '{}' could not be validated.", loginForm.getUsername());
             return "login";
         }
-        if (!userService.validateUser(loginForm)) {
-            result.addError(new ObjectError("globalError", "Username and password do not match known users"));
-            return "login";
+        if (!userService.userExists(loginForm)) {
+            userService.loadData(loginForm.getUsername());
+            return "redirect:/portfolio";
         }
         attrs.addAttribute("username", loginForm.getUsername());
         log.info("loginPost: User '{}' was redirected to /portfolio.", loginForm.getUsername());

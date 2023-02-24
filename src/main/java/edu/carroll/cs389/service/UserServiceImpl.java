@@ -29,7 +29,7 @@ public class UserServiceImpl implements UserService {
         }
     }
 
-    public boolean validateUser(LoginForm loginForm) {
+    public boolean userExists(LoginForm loginForm) {
         log.info("validateUser: User '{}' tried to log in.", loginForm.getUsername());
         // Always do the lookup in a case-insensitive manner (lower-casing the data).
         List<Login> users = loginRepo.findByUsernameIgnoreCase(loginForm.getUsername());
@@ -37,9 +37,15 @@ public class UserServiceImpl implements UserService {
         // We expect 0 or 1, so if we get more than 1, bail out as this is an error we don't deal with properly.
         if (users.size() > 1) {
             log.info("validateUser: Username '{}' returned more than one record.", loginForm.getUsername());
+            return true;
+        }
+
+        if (users.size() == 0) {
+            log.info("userExists: Username '{}' does not exist.", loginForm.getUsername());
             return false;
         }
 
+        // Else if users.size() == 1 just return true
         log.info("validateUser: User '{}' successfully logged in.", loginForm.getUsername());
         return true;
     }
