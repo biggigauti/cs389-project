@@ -23,8 +23,11 @@ public class UserServiceImpl implements UserService {
         this.loginRepo = loginRepo;
     }
 
-    // If the username provided does not already exist in the database, create a new user.
-    // Makes sure we always look everything up in a non-case-sensitive manner.
+    /**
+     * If the username provided does not already exist in the database, create a new user.
+     * Makes sure we always look everything up in a non-case-sensitive manner.
+     * @param username
+     */
     public void createUser(String username) {
         final List<Login> defaultUsers = loginRepo.findByUsernameIgnoreCase(username);
         // If there are no users with that username...
@@ -35,8 +38,12 @@ public class UserServiceImpl implements UserService {
         }
     }
 
-    // Checks if the user exists based on the username retrieved from the LoginForm.
-    // Return true if the user exists, return false if it doesn't.
+    /**
+     * Checks if the user exists based on the username retrieved from the LoginForm.
+     * Return true if the user exists, return false if it doesn't.
+     * @param loginForm - Data containing user login information, such as username.
+     * @return true if the user exists, false if the user does not exist.
+     */
     public boolean userExists(LoginForm loginForm) {
         log.info("validateUser: User '{}' tried to log in.", loginForm.getUsername());
         // Always do the lookup in a case-insensitive manner (lower-casing the data).
