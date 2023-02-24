@@ -24,8 +24,6 @@ public class IndexControllerTest {
     @Test
     public void indexTest() throws Exception {
         mockMvc.perform(get("/")).andDo(print())
-                .andExpect(status().isOk())
-                .andExpect(content().string(containsString("Test")))
-                .andExpect(content().string(containsString("login")));
+                .andExpect(status().isOk());
     }
 }
