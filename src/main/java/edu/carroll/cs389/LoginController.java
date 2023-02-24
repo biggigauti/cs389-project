@@ -58,7 +58,7 @@ public class LoginController {
         attrs.addAttribute("username", loginForm.getUsername());
         log.info("loginPost: User '{}' was redirected to /portfolio.", loginForm.getUsername());
 
-        //If none of the conditions are met above, reroute to the login page.
-        return "login";
+        //If none of the conditions are met above, user exists, redirect to /portfolio page.
+        return "redirect:/portfolio";
     }
 }

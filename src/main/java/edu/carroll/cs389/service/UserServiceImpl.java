@@ -43,7 +43,7 @@ public class UserServiceImpl implements UserService {
         List<Login> users = loginRepo.findByUsernameIgnoreCase(loginForm.getUsername());
 
         // If the 'users' list returns 1 or more, the user exists. Return true.
-        if (users.size() >= 1) {
+        if (users.size() > 1) {
             log.info("validateUser: Username '{}' returned more than one record.", loginForm.getUsername());
             return true;
         }
