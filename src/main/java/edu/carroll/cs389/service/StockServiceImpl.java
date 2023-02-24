@@ -1,5 +1,6 @@
 package edu.carroll.cs389.service;
 
+import edu.carroll.cs389.jpa.model.Stock;
 import edu.carroll.cs389.jpa.repo.StockRepository;
 import edu.carroll.cs389.web.form.StockForm;
 import org.slf4j.Logger;
@@ -25,7 +26,13 @@ public class StockServiceImpl {
      * @param stockForm
      */
     public void createPosition(StockForm stockForm) {
-
+        Stock newStock = new Stock();
+        //Somehow grab the user's ID
+        //newStock.setUserId();
+        newStock.setTicker(stockForm.getTicker());
+        newStock.setBuyPrice(stockForm.getBuyPrice());
+        newStock.setShares(stockForm.getShares());
+        stockRepo.save(newStock);
     }
 
     /**

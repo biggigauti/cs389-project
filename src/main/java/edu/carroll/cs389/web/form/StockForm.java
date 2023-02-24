@@ -16,4 +16,28 @@ public class StockForm {
 
     @NotNull
     private Float shares;
+
+    public String getTicker() {
+        return ticker;
+    }
+
+    public void setTicker(String ticker) {
+        this.ticker = ticker;
+    }
+
+    public Float getBuyPrice() {
+        return buyPrice;
+    }
+
+    public void setBuyPrice(Float buyPrice) {
+        this.buyPrice = buyPrice;
+    }
+
+    public Float getShares() {
+        return shares;
+    }
+
+    public void setShares(Float shares) {
+        this.shares = shares;
+    }
 }
