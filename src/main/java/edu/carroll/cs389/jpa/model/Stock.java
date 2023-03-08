@@ -2,11 +2,7 @@ package edu.carroll.cs389.jpa.model;
 
 import java.util.Objects;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 
 /**
  * The Stocks class is a JPA model that interacts with our database. Rather than creating the
@@ -23,16 +19,15 @@ public class Stock {
     @GeneratedValue
     private Long id;
 
-    //foreign key
-    @Column(name = "user_id")
-    private String userId;
+    @ManyToOne
+    @JoinColumn(name = "user")
+    private User user;
 
     @Column(name = "ticker")
     private String ticker;
 
     @Column(name = "buy_price")
     private Float buyPrice;
-
 
     @Column(name = "shares")
     private Float shares;
@@ -45,12 +40,12 @@ public class Stock {
         this.id = id;
     }
 
-    public String getUserId() {
-        return userId;
+    public User getUser() {
+        return user;
     }
 
-    public void setUserId(String userId) {
-        this.userId = userId;
+    public void setUser(User user) {
+        this.user = user;
     }
 
     public String getTicker() {

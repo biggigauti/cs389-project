@@ -8,6 +8,7 @@ import jakarta.validation.constraints.NotNull;
  * The StockForm allows us to validate and store the content that the user submits.
  */
 public class StockForm {
+
     @NotNull
     private String ticker;
 

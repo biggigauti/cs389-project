@@ -1,12 +1,17 @@
 package edu.carroll.cs389.service;
 
 import edu.carroll.cs389.jpa.model.Stock;
+import edu.carroll.cs389.jpa.model.User;
 import edu.carroll.cs389.jpa.repo.StockRepository;
+import edu.carroll.cs389.jpa.repo.UserRepository;
 import edu.carroll.cs389.web.form.StockForm;
+import edu.carroll.cs389.web.form.UserForm;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 /**
  * Desc
@@ -17,21 +22,24 @@ public class StockServiceImpl {
 
     private final StockRepository stockRepo;
 
-    public StockServiceImpl(StockRepository stockRepo) {
+    private final UserRepository userRepo;
+
+    public StockServiceImpl(StockRepository stockRepo, UserRepository userRepo) {
         this.stockRepo = stockRepo;
+        this.userRepo = userRepo;
     }
 
     /**
      *
      * @param stockForm
      */
-    public void createPosition(StockForm stockForm) {
+    public void createPosition(String ticker, Float price, Float shares, String username) {
+        List<User> users = userRepo.findByUsernameIgnoreCase("Birgir");
         Stock newStock = new Stock();
-        //Somehow grab the user's ID
-        //newStock.setUserId();
-        newStock.setTicker(stockForm.getTicker());
-        newStock.setBuyPrice(stockForm.getBuyPrice());
-        newStock.setShares(stockForm.getShares());
+        newStock.setUser(users.get(0));
+        newStock.setTicker(ticker);
+        newStock.setBuyPrice(price);
+        newStock.setShares(shares);
         stockRepo.save(newStock);
     }
 
@@ -39,7 +47,14 @@ public class StockServiceImpl {
      *
      * @param stockForm
      */
-    public void deletePosition(StockForm stockForm) {
+    public void deletePosition(String ticker, Float price, Float shares, String username) {
+        List<Stock> stocks = stockRepo.findByTickerIgnoreCase(ticker);
+        //Check that the holding belongs to our user and delete it.
+    }
 
+    public List<Stock> loadExistingPosition(String username) {
+        //Pass in user from session/cookie?
+        //List<Stock> existingPosition = stockRepo.findByUser();
+        return null;
     }
 }
