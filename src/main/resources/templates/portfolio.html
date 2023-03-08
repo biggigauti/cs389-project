@@ -3,29 +3,34 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <title>Portfolio Page</title>
+
+    <script inline="javascript">
+        function addPosition() {
+            var table = document.getElementById("table");
+
+            var row = table.insertRow(-1);
+
+            var cell1 = row.insertCell(0);
+            var cell2 = row.insertCell(1);
+            var cell3 = row.insertCell(2);
+
+            cell1.innerHTML = "test";
+            cell2.innerHTML = "test2";
+            cell3.innerHTML = "test3";
+        }
+    </script>
 </head>
 <body>
 
-<script>
-    function loadData() {
-        var table = Document.getElementById("table")
-
-        table.
-    }
-</script>
-
-<table id = "table">
+<table id = "table" border="1" style="border-collapse: collapse">
     <tr>
         <th>Ticker</th>
         <th>Buy Price</th>
         <th>Shares</th>
     </tr>
-    <tr>
-        <td></td>
-        <td></td>
-        <td></td>
-    </tr>
 </table>
+
+<button onclick="addPosition()">Add Position</button>
 
 </body>
 </html>

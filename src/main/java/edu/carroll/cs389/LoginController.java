@@ -36,6 +36,14 @@ public class LoginController {
         return "login";
     }
 
+
+    /*
+    Add HttpServletRequest to login post called req
+    set attribute username to that request.
+    now we can
+     */
+
+
     // PostMapping from the /login page.
     // The @Valid annotation and the BindingResult check for any errors
     @PostMapping("/login")
