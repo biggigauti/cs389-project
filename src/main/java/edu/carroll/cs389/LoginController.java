@@ -2,6 +2,7 @@ package edu.carroll.cs389;
 
 import edu.carroll.cs389.service.UserService;
 import edu.carroll.cs389.web.form.UserForm;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -47,8 +48,9 @@ public class LoginController {
     // PostMapping from the /login page.
     // The @Valid annotation and the BindingResult check for any errors
     @PostMapping("/login")
-    public String loginPost(@Valid @ModelAttribute UserForm userForm, BindingResult result, RedirectAttributes attrs) {
+    public String loginPost(@Valid @ModelAttribute UserForm userForm, BindingResult result, RedirectAttributes attrs, HttpServletRequest req) {
         // Reroute the user to the login page if @Valid and BindingResult find any errors.
+        req.getSession().setAttribute("username", userForm.getUsername());
         if (result.hasErrors()) {
             log.info("loginPost: User '{}' could not be validated.", userForm.getUsername());
             return "login";

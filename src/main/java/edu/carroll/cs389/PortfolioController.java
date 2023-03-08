@@ -1,6 +1,7 @@
 package edu.carroll.cs389;
 
 import edu.carroll.cs389.web.form.StockForm;
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -17,15 +18,8 @@ import org.slf4j.LoggerFactory;
 public class PortfolioController {
     private static final Logger log = LoggerFactory.getLogger(PortfolioController.class);
     @GetMapping("/portfolio")
-    public String index() {
+    public String index(HttpServletRequest req) {
+        String username = (String)req.getSession().getAttribute("username");
         return "portfolio";
     }
-
-    /*
-    @PostMapping("/portfolio")
-    //Validate userId?
-    public String portfolioPost(StockForm stockForm) {
-
-    }
-     */
 }
