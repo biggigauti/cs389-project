@@ -75,6 +75,13 @@
             }
         };
 
+        function submitData() {
+            const tickerField = document.getElementById("ticker").value;
+            const priceField = document.getElementById("price").value;
+            const sharesField = document.getElementById("shares").value;
+
+            window.alert(tickerField.toString() + priceField.toString() + sharesField.toString())
+        }
 
         /*
         function addPosition() {
@@ -112,7 +119,15 @@
     <!-- Modal content -->
     <div class="modal-content">
         <span class="close">&times;</span>
-        <p>Some text in the Modal..</p>
+        <p>Enter new position:</p>
+        <label for="ticker">Ticker:</label>
+        <input id="ticker" type="text">
+        <label for="price">Price:</label>
+        <input id="price" type="text">
+        <label for="shares"># of shares:</label>
+        <input id="shares" type="text">
+        <br/>
+        <button type="button" onclick="submitData()">Submit</button>
     </div>
 
 </div>
