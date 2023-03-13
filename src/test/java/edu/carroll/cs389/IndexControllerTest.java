@@ -16,6 +16,8 @@ import org.springframework.test.web.servlet.MockMvc;
 public class IndexControllerTest {
     //MockMvc is a Spring test framework and helps the controllers by starting a Servlet container.
     //Used for testing controllers.
+
+    //MockMvc tests controllers without needing to start HTTP servers/connections?
     @Autowired
     private MockMvc mockMvc;
 

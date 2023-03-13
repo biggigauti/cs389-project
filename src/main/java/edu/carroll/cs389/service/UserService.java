@@ -12,7 +12,7 @@ public interface UserService {
      * @param form - Data containing user login information, such as username and password.
      * @return true if data exists and matches what's on record, false otherwise
      */
-    boolean userExists(UserForm form);
+    boolean userExists(String username);
 
     /**
      * Given a username, double check that it doesn't exist. If it doesn't,

@@ -51,6 +51,7 @@ public class LoginController {
     public String loginPost(@Valid @ModelAttribute UserForm userForm, BindingResult result, RedirectAttributes attrs, HttpServletRequest req) {
         // Reroute the user to the login page if @Valid and BindingResult find any errors.
         req.getSession().setAttribute("username", userForm.getUsername());
+        String username = (String)req.getSession().getAttribute("username");
         if (result.hasErrors()) {
             log.info("loginPost: User '{}' could not be validated.", userForm.getUsername());
             return "login";
@@ -58,8 +59,8 @@ public class LoginController {
 
         // If the user doesn't exist, call create user and reroute the user to the portfolio page.
         // The user will now be logged in.
-        if (!userService.userExists(userForm)) {
-            userService.createUser(userForm.getUsername());
+        if (!userService.userExists(username)) {
+            userService.createUser(username);
             return "redirect:/portfolio";
         }
 

@@ -44,25 +44,25 @@ public class UserServiceImpl implements UserService {
      * @param userForm - Data containing user login information, such as username.
      * @return true if the user exists, false if the user does not exist.
      */
-    public boolean userExists(UserForm userForm) {
-        log.info("validateUser: User '{}' tried to log in.", userForm.getUsername());
+    public boolean userExists(String username) {
+        log.info("validateUser: User '{}' tried to log in.", username);
         // Always do the lookup in a case-insensitive manner (lower-casing the data).
-        List<User> users = loginRepo.findByUsernameIgnoreCase(userForm.getUsername());
+        List<User> users = loginRepo.findByUsernameIgnoreCase(username);
 
         // If the 'users' list returns 1 or more, the user exists. Return true.
         if (users.size() > 1) {
-            log.info("validateUser: Username '{}' returned more than one record.", userForm.getUsername());
+            log.info("validateUser: Username '{}' returned more than one record.", username);
             return true;
         }
 
         // If the 'users' list returns 0, the user does not exist. Return false.
         if (users.size() == 0) {
-            log.info("userExists: Username '{}' does not exist.", userForm.getUsername());
+            log.info("userExists: Username '{}' does not exist.", username);
             return false;
         }
 
         // Else if users.size() == 1 just return true
-        log.info("validateUser: User '{}' successfully logged in.", userForm.getUsername());
+        log.info("validateUser: User '{}' successfully logged in.", username);
         return true;
     }
 }

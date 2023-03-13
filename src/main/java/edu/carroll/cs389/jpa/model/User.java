@@ -14,7 +14,7 @@ import jakarta.persistence.Table;
  * This table stores the user's UID and username.
  */
 @Entity
-@Table(name = "user")
+@Table(name = "app_user")
 public class User {
     private static final long serialVersionUID = 1L;
 
