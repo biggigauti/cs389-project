@@ -1,12 +1,9 @@
 package edu.carroll.cs389.jpa.model;
 
 import java.util.Objects;
+import java.util.Set;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 
 /**
  * The Login class is a JPA model that interacts with our database. Rather than creating the
@@ -25,6 +22,9 @@ public class User {
     @Column(name = "username", nullable = false, unique = true)
     private String username;
 
+    @OneToMany(mappedBy = "user")
+    private Set<Stock> stocks;
+
     public Long getId() {
         return id;
     }
@@ -39,6 +39,14 @@ public class User {
 
     public void setUsername(String username) {
         this.username = username;
+    }
+
+    public Set<Stock> getStocks() {
+        return stocks;
+    }
+
+    public void setStocks(Set<Stock> stocks) {
+        this.stocks = stocks;
     }
 
     @Override

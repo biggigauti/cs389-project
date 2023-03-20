@@ -9,7 +9,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 /**
  * The StockRepository allows us to access data in the Stock table.
  */
-public interface StockRepository extends JpaRepository<Stock, Integer> {
+public interface StockRepository extends JpaRepository<Stock, Long> {
     //Returns list regardless or length so JPA doesn't throw errors.
     List<Stock> findByTickerIgnoreCase(String ticker);
     List<Stock> findByUser(User user);

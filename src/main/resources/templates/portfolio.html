@@ -80,7 +80,21 @@
             const priceField = document.getElementById("price").value;
             const sharesField = document.getElementById("shares").value;
 
-            window.alert(tickerField.toString() + priceField.toString() + sharesField.toString())
+            const jsonBody = '{' + '"ticker": "' + tickerField + '", "price": ' + priceField + ', "shares": ' + sharesField + '}';
+            //body: JSON.stringify({ "id": 78912 })
+
+            fetch('http://localhost:8080/portfolio', {
+                method: 'POST',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(jsonBody)
+            })
+                .then(response => response.json())
+                .then(response => console.log(JSON.stringify(response)))
+
+            //window.alert(tickerField.toString() + priceField.toString() + sharesField.toString())
         }
 
         /*

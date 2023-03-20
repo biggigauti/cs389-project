@@ -4,8 +4,6 @@ import edu.carroll.cs389.jpa.model.Stock;
 import edu.carroll.cs389.jpa.model.User;
 import edu.carroll.cs389.jpa.repo.StockRepository;
 import edu.carroll.cs389.jpa.repo.UserRepository;
-import edu.carroll.cs389.web.form.StockForm;
-import edu.carroll.cs389.web.form.UserForm;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

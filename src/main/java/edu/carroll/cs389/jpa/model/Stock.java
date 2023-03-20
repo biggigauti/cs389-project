@@ -21,7 +21,7 @@ public class Stock {
 
     @ManyToOne
     @JoinColumn(name = "user_id")
-    private User userId;
+    private User user;
 
     @Column(name = "ticker")
     private String ticker;
@@ -40,12 +40,12 @@ public class Stock {
         this.id = id;
     }
 
-    public User getUserId() {
-        return userId;
+    public User getUser() {
+        return user;
     }
 
     public void setUser(User user) {
-        this.userId = userId;
+        this.user = user;
     }
 
     public String getTicker() {
@@ -68,7 +68,7 @@ public class Stock {
         return shares;
     }
 
-    public void setShares(float shares) {
+    public void setShares(Float shares) {
         this.shares = shares;
     }
 

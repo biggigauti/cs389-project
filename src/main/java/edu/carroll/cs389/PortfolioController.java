@@ -22,4 +22,6 @@ public class PortfolioController {
         String username = (String)req.getSession().getAttribute("username");
         return "portfolio";
     }
+
+    //@PostMapping(consumes="application/json")
 }
