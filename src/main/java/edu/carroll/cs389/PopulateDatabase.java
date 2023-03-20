@@ -7,6 +7,7 @@ import edu.carroll.cs389.jpa.repo.UserRepository;
 import jakarta.annotation.PostConstruct;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
 import java.util.Random;
 
 @Component
@@ -32,7 +33,7 @@ public class PopulateDatabase {
     public Stock createPositions(User myUser) {
 
         Stock stock1 = new Stock();
-        
+
         stock1.setUser(myUser);
         stock1.setTicker("aapl");
         stock1.setBuyPrice(100.00f);
@@ -43,9 +44,13 @@ public class PopulateDatabase {
 
     @PostConstruct
     public void loadStock() {
-        User userInit = createUser();
-        userRepo.save(userInit);
-        Stock stockInit = createPositions(userInit);
-        stockRepo.save(stockInit);
+        List<User> users = userRepo.findByUsernameIgnoreCase("birgir populate");
+
+        if (users.isEmpty()) {
+            User userInit = createUser();
+            userRepo.save(userInit);
+            Stock stockInit = createPositions(userInit);
+            stockRepo.save(stockInit);
+        }
     }
 }
