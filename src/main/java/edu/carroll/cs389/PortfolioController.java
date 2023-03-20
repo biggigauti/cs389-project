@@ -1,12 +1,13 @@
 package edu.carroll.cs389;
 
+import edu.carroll.cs389.json.model.StockModel;
 import edu.carroll.cs389.web.form.StockForm;
+import edu.carroll.cs389.web.form.UserForm;
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.validation.Valid;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -23,5 +24,8 @@ public class PortfolioController {
         return "portfolio";
     }
 
-    //@PostMapping(consumes="application/json")
+    @PostMapping(path="/portfolio", consumes="application/json")
+    public void load(@Valid @RequestBody StockModel stockModel) {
+        log.info(stockModel.toString());
+    }
 }
