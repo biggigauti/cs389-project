@@ -1,5 +1,6 @@
 package edu.carroll.cs389;
 
+import edu.carroll.cs389.jpa.model.Stock;
 import edu.carroll.cs389.json.model.StockModel;
 import edu.carroll.cs389.web.form.StockForm;
 import edu.carroll.cs389.web.form.UserForm;
@@ -25,7 +26,13 @@ public class PortfolioController {
     }
 
     @PostMapping(path="/portfolio", consumes="application/json")
-    public void load(@Valid @RequestBody StockModel stockModel) {
+    public void load(@Valid @RequestBody StockModel stockModel, HttpServletRequest req) {
         log.info(stockModel.toString());
+
+        Stock stock = new Stock();
+        stock.setTicker(stockModel.getTicker());
+        stock.setBuyPrice(stockModel.getPrice());
+        stock.setShares(stockModel.getShares());
+        stock.setUser(req.getSession().getAttribute("username")); //change to user once I fix the servlet request.
     }
 }
