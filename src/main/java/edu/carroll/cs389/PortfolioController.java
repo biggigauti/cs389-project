@@ -29,10 +29,13 @@ public class PortfolioController {
     public void load(@Valid @RequestBody StockModel stockModel, HttpServletRequest req) {
         log.info(stockModel.toString());
 
+        /*
         Stock stock = new Stock();
         stock.setTicker(stockModel.getTicker());
         stock.setBuyPrice(stockModel.getPrice());
         stock.setShares(stockModel.getShares());
         stock.setUser(req.getSession().getAttribute("username")); //change to user once I fix the servlet request.
+        
+         */
     }
 }
