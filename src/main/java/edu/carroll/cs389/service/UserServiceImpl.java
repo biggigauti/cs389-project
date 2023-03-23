@@ -65,4 +65,10 @@ public class UserServiceImpl implements UserService {
         log.info("validateUser: User '{}' successfully logged in.", username);
         return true;
     }
+
+    public User getUser(String username) {
+        List<User> myUser = loginRepo.findByUsernameIgnoreCase(username);
+
+        return myUser.get(0);
+    }
 }

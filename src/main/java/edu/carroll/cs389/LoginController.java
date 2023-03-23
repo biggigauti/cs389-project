@@ -1,5 +1,6 @@
 package edu.carroll.cs389;
 
+import edu.carroll.cs389.jpa.repo.UserRepository;
 import edu.carroll.cs389.service.UserService;
 import edu.carroll.cs389.web.form.UserForm;
 import jakarta.servlet.http.HttpServletRequest;
@@ -51,6 +52,8 @@ public class LoginController {
     public String loginPost(@Valid @ModelAttribute UserForm userForm, BindingResult result, RedirectAttributes attrs, HttpServletRequest req) {
         // Reroute the user to the login page if @Valid and BindingResult find any errors.
         req.getSession().setAttribute("username", userForm.getUsername());
+
+
         String username = (String)req.getSession().getAttribute("username");
         if (result.hasErrors()) {
             log.info("loginPost: User '{}' could not be validated.", userForm.getUsername());

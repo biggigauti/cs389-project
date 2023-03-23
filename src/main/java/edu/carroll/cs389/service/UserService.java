@@ -1,5 +1,6 @@
 package edu.carroll.cs389.service;
 
+import edu.carroll.cs389.jpa.model.User;
 import edu.carroll.cs389.web.form.UserForm;
 
 /**
@@ -20,4 +21,11 @@ public interface UserService {
      * @param username
      */
     void createUser(String username);
+
+    /**
+     * Get a User object when given a username.
+     * @param username
+     * @return
+     */
+    User getUser(String username);
 }

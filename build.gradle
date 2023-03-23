@@ -32,6 +32,22 @@ dependencies {
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 }
 
+tasks.named("jar") {
+	enabled = false
+}
+
 tasks.named('test') {
 	useJUnitPlatform()
 }
+
+/*
+after adding task "jar" build with ./gradlew build command. should show up under build/libs.
+
+find docker java base image on docker hub.
+
+eclipse-temurin on docker hub. base image openJDK by eclipse team. version 17. we want jre version.
+
+17-jre-alpine picked as base image.
+
+./build.sh to run the docker image file
+ */
