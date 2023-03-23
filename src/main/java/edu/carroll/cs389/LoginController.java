@@ -1,5 +1,6 @@
 package edu.carroll.cs389;
 
+import edu.carroll.cs389.jpa.model.User;
 import edu.carroll.cs389.jpa.repo.UserRepository;
 import edu.carroll.cs389.service.UserService;
 import edu.carroll.cs389.web.form.UserForm;
@@ -55,6 +56,11 @@ public class LoginController {
 
 
         String username = (String)req.getSession().getAttribute("username");
+
+        User theUser = userService.getUser(username);
+
+        req.getSession().setAttribute("user", theUser);
+
         if (result.hasErrors()) {
             log.info("loginPost: User '{}' could not be validated.", userForm.getUsername());
             return "login";
