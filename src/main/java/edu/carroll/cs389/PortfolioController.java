@@ -1,12 +1,11 @@
 package edu.carroll.cs389;
 
-import edu.carroll.cs389.jpa.model.Stock;
+import edu.carroll.cs389.jpa.model.User;
 import edu.carroll.cs389.json.model.StockModel;
-import edu.carroll.cs389.web.form.StockForm;
-import edu.carroll.cs389.web.form.UserForm;
+import edu.carroll.cs389.service.StockService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
-import org.springframework.ui.Model;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.stereotype.Controller;
 
@@ -19,9 +18,15 @@ import org.slf4j.LoggerFactory;
 @Controller
 public class PortfolioController {
     private static final Logger log = LoggerFactory.getLogger(PortfolioController.class);
+
+    private final StockService stockService;
+
+    public PortfolioController(StockService stockService) {
+        this.stockService = stockService;
+    }
+
     @GetMapping("/portfolio")
     public String index(HttpServletRequest req) {
-        String username = (String)req.getSession().getAttribute("username");
         return "portfolio";
     }
 
@@ -34,8 +39,15 @@ public class PortfolioController {
         stock.setTicker(stockModel.getTicker());
         stock.setBuyPrice(stockModel.getPrice());
         stock.setShares(stockModel.getShares());
-        stock.setUser(req.getSession().getAttribute("username")); //change to user once I fix the servlet request.
-        
+        stock.setUser((User)req.getSession().getAttribute("user"));
+
          */
+
+        stockService.createPosition(
+                stockModel.getTicker(),
+                stockModel.getPrice(),
+                stockModel.getShares(),
+                (User)req.getSession().getAttribute("user")
+                );
     }
 }

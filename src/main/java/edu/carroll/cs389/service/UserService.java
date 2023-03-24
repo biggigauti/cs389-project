@@ -2,11 +2,14 @@ package edu.carroll.cs389.service;
 
 import edu.carroll.cs389.jpa.model.User;
 import edu.carroll.cs389.web.form.UserForm;
+import org.springframework.stereotype.Repository;
+import org.springframework.stereotype.Service;
 
 /**
  * The UserService Interface defines the business operations we want to execute.
  * The methods are explained in detail below.
  */
+
 public interface UserService {
     /**
      * Given a LoginForm, determine if the username provided exists in the database.

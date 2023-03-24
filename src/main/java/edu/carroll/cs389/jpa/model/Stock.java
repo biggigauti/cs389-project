@@ -1,7 +1,6 @@
 package edu.carroll.cs389.jpa.model;
 
 import java.util.Objects;
-
 import jakarta.persistence.*;
 
 /**
@@ -44,8 +43,8 @@ public class Stock {
         return user;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setUser(User myUser) {
+        this.user = myUser;
     }
 
     public String getTicker() {
@@ -64,7 +63,7 @@ public class Stock {
         this.buyPrice = buyPrice;
     }
 
-    public float getShares() {
+    public Float getShares() {
         return shares;
     }
 

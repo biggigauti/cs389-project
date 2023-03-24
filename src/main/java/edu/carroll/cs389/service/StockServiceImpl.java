@@ -14,9 +14,10 @@ import java.util.List;
 /**
  * Desc
  */
+
 @Service
-public class StockServiceImpl {
-    private static final Logger log = LoggerFactory.getLogger(UserServiceImpl.class);
+public class StockServiceImpl implements StockService {
+    private static final Logger log = LoggerFactory.getLogger(StockServiceImpl.class);
 
     private final StockRepository stockRepo;
 
@@ -27,11 +28,8 @@ public class StockServiceImpl {
         this.userRepo = userRepo;
     }
 
-    /**
-     *
-     * @param stockForm
-     */
-    public void createPosition(String ticker, Float price, Float shares, String username) {
+
+    public void createPosition(String ticker, Float price, Float shares, User user) {
         List<User> users = userRepo.findByUsernameIgnoreCase("Birgir");
         Stock newStock = new Stock();
         newStock.setUser(users.get(0));
@@ -41,11 +39,8 @@ public class StockServiceImpl {
         stockRepo.save(newStock);
     }
 
-    /**
-     *
-     * @param stockForm
-     */
-    public void deletePosition(String ticker, Float price, Float shares, String username) {
+
+    public void deletePosition(String ticker, Float price, Float shares, User user) {
         List<Stock> stocks = stockRepo.findByTickerIgnoreCase(ticker);
         //Check that the holding belongs to our user and delete it.
     }
