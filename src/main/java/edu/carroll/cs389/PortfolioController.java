@@ -1,11 +1,10 @@
 package edu.carroll.cs389;
 
-import edu.carroll.cs389.jpa.model.User;
 import edu.carroll.cs389.json.model.StockModel;
 import edu.carroll.cs389.service.StockService;
+import edu.carroll.cs389.service.UserService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.stereotype.Controller;
 
@@ -21,8 +20,11 @@ public class PortfolioController {
 
     private final StockService stockService;
 
-    public PortfolioController(StockService stockService) {
+    private final UserService userService;
+
+    public PortfolioController(StockService stockService, UserService userService) {
         this.stockService = stockService;
+        this.userService = userService;
     }
 
     @GetMapping("/portfolio")
@@ -34,6 +36,8 @@ public class PortfolioController {
     public void load(@Valid @RequestBody StockModel stockModel, HttpServletRequest req) {
         log.info(stockModel.toString());
 
+        System.out.println(stockModel);
+
         /*
         Stock stock = new Stock();
         stock.setTicker(stockModel.getTicker());
@@ -44,10 +48,10 @@ public class PortfolioController {
          */
 
         stockService.createPosition(
-                stockModel.getTicker(),
-                stockModel.getPrice(),
-                stockModel.getShares(),
-                (User)req.getSession().getAttribute("user")
-                );
+            stockModel.getTicker(),
+            stockModel.getPrice(),
+            stockModel.getShares(),
+            userService.getUser((String)req.getSession().getAttribute("username"))
+            );
     }
 }

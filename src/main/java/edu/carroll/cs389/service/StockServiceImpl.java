@@ -30,9 +30,8 @@ public class StockServiceImpl implements StockService {
 
 
     public void createPosition(String ticker, Float price, Float shares, User user) {
-        List<User> users = userRepo.findByUsernameIgnoreCase("Birgir");
         Stock newStock = new Stock();
-        newStock.setUser(users.get(0));
+        newStock.setUser(user);
         newStock.setTicker(ticker);
         newStock.setBuyPrice(price);
         newStock.setShares(shares);

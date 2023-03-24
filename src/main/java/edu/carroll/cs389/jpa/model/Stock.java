@@ -25,7 +25,7 @@ public class Stock {
     @Column(name = "ticker")
     private String ticker;
 
-    @Column(name = "buy_price")
+    @Column(name = "price")
     private Float buyPrice;
 
     @Column(name = "shares")
