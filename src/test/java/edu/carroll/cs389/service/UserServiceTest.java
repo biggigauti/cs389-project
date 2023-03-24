@@ -40,8 +40,6 @@ public class UserServiceTest {
 
         userService.createUser(user1);
 
-        assertTrue(userService.userExists(user1));
-
         userService.createUser(user2);
 
         assertTrue(userService.userExists(user1));

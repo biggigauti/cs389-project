@@ -4,15 +4,12 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.validation.constraints.NotNull;
 
 public class StockModel {
-    @JsonProperty("ticker")
     @NotNull
     private String ticker;
 
-    @JsonProperty("price")
     @NotNull
     private Float price;
 
-    @JsonProperty("shares")
     @NotNull
     private Float shares;
 
