@@ -80,8 +80,11 @@
             const priceField = document.getElementById("price").value;
             const sharesField = document.getElementById("shares").value;
 
-            const jsonBody = '{' + '"ticker": "' + tickerField + '", "price": ' + priceField + ', "shares": ' + sharesField + '}';
-            //body: JSON.stringify({ "id": 78912 })
+            const jsonBody = {
+                ticker: tickerField,
+                price: priceField,
+                shares: sharesField
+            };
 
             fetch('http://localhost:8080/portfolio', {
                 method: 'POST',
