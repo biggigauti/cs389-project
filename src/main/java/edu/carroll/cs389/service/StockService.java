@@ -3,6 +3,7 @@ package edu.carroll.cs389.service;
 
 import edu.carroll.cs389.jpa.model.Stock;
 import edu.carroll.cs389.jpa.model.User;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 
@@ -19,5 +20,5 @@ public interface StockService {
 
     void deletePosition(String ticker, Float price, Float shares, User user);
 
-    List<Stock> loadExistingPosition(String username);
+    List<Stock> loadExistingPosition(HttpSession session);
 }

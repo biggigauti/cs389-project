@@ -1,5 +1,6 @@
 package edu.carroll.cs389.service;
 
+import edu.carroll.cs389.jpa.model.Stock;
 import edu.carroll.cs389.jpa.model.User;
 import edu.carroll.cs389.jpa.repo.UserRepository;
 import edu.carroll.cs389.web.form.UserForm;

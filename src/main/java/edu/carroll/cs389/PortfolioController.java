@@ -1,15 +1,21 @@
 package edu.carroll.cs389;
 
+import edu.carroll.cs389.jpa.model.Stock;
+import edu.carroll.cs389.jpa.model.User;
 import edu.carroll.cs389.json.model.StockModel;
 import edu.carroll.cs389.service.StockService;
 import edu.carroll.cs389.service.UserService;
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.stereotype.Controller;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.util.List;
 
 /**
  * Takes HTTP requests for /portfolio and returns the portfolio template.
@@ -28,24 +34,18 @@ public class PortfolioController {
     }
 
     @GetMapping("/portfolio")
-    public String index(HttpServletRequest req) {
+    public String index(HttpSession session, Model model) {
+        String username = (String)session.getAttribute("username");
+        User user = userService.getUser(username);
+        List<Stock> stocks = stockService.loadExistingPosition(session);
+        model.addAttribute("stocks", stocks);
         return "portfolio";
     }
+
 
     @PostMapping(path="/portfolio", consumes="application/json")
     public void load(@Valid @RequestBody StockModel stockModel, HttpServletRequest req) {
         log.info(stockModel.toString());
-
-        System.out.println(stockModel);
-
-        /*
-        Stock stock = new Stock();
-        stock.setTicker(stockModel.getTicker());
-        stock.setBuyPrice(stockModel.getPrice());
-        stock.setShares(stockModel.getShares());
-        stock.setUser((User)req.getSession().getAttribute("user"));
-
-         */
 
         stockService.createPosition(
             stockModel.getTicker(),

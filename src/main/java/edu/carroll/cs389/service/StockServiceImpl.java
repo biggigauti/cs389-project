@@ -4,6 +4,7 @@ import edu.carroll.cs389.jpa.model.Stock;
 import edu.carroll.cs389.jpa.model.User;
 import edu.carroll.cs389.jpa.repo.StockRepository;
 import edu.carroll.cs389.jpa.repo.UserRepository;
+import jakarta.servlet.http.HttpSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -44,9 +45,10 @@ public class StockServiceImpl implements StockService {
         //Check that the holding belongs to our user and delete it.
     }
 
-    public List<Stock> loadExistingPosition(String username) {
-        //Pass in user from session/cookie?
-        //List<Stock> existingPosition = stockRepo.findByUser();
-        return null;
+    public List<Stock> loadExistingPosition(HttpSession session) {
+        String username = (String)session.getAttribute("username");
+        List<User> users = userRepo.findByUsernameIgnoreCase(username);
+        List<Stock> stocks = stockRepo.findByUser(users.get(0));
+        return stocks;
     }
 }
