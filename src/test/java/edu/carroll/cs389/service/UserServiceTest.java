@@ -35,8 +35,8 @@ public class UserServiceTest {
 
     @Test
     public void createUsersTest() {
-        final String user1 = "user1";
-        final String user2 = "user2";
+        final String user1 = "user10";
+        final String user2 = "user20";
 
         userService.createUser(user1);
 
@@ -56,23 +56,21 @@ public class UserServiceTest {
         assertFalse(userService.userExists(wrongUsername));
     }
 
-
-    //Create user returns true/false. Test duplicates that way, does the second user get created?
-    /*
     @Test
-    public void duplicateUserTest() {
-        final String user1 = "birgir";
-        final String user2 = "BiRgIr";
+    public void nullUsername() {
+        final String nullUser = null;
 
-        userService.createUser(user1);
-        userService.createUser(user2);
+        userService.createUser(nullUser);
 
-        //can i access the test database?
-        //do i have to create a method in userService to check the length of this?
-        final List<User> userList = loginRepo.findByUsernameIgnoreCase("Birgir");
-
-        assertEquals(1, (float) userList.size());
+        assertFalse(userService.userExists(nullUser));
     }
 
-     */
+    @Test
+    public void shortUsername() {
+        final String shortUser = "nate";
+
+        userService.createUser(shortUser);
+
+        assertFalse(userService.userExists(shortUser));
+    }
 }

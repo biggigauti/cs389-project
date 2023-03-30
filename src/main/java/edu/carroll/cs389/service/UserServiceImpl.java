@@ -30,12 +30,22 @@ public class UserServiceImpl implements UserService {
      * @param username
      */
     public void createUser(String username) {
-        final List<User> defaultUsers = loginRepo.findByUsernameIgnoreCase(username);
-        // If there are no users with that username...
-        if (defaultUsers.isEmpty()) {
-            User newUser = new User();
-            newUser.setUsername(username);
-            loginRepo.save(newUser);
+        if (username == null) {
+            log.error("createUser: A username of null was submitted.");
+        }
+
+        else if (username.length() < 6) {
+            log.error("createUser: User tried to insert username with less than 6 characters.");
+        }
+
+        else if (username != null && username.length() >= 6) {
+            final List<User> defaultUsers = loginRepo.findByUsernameIgnoreCase(username);
+            // If there are no users with that username...
+            if (defaultUsers.isEmpty()) {
+                User newUser = new User();
+                newUser.setUsername(username);
+                loginRepo.save(newUser);
+            }
         }
     }
 
