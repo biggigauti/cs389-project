@@ -38,7 +38,7 @@ public class PortfolioController {
         if ((String)session.getAttribute("username") != null) {
             String username = (String)session.getAttribute("username");
             User user = userService.getUser(username);
-            List<Stock> stocks = stockService.loadExistingPosition(session);
+            List<Stock> stocks = stockService.loadExistingPosition(user);
             model.addAttribute("stocks", stocks);
             return "portfolio";
         }

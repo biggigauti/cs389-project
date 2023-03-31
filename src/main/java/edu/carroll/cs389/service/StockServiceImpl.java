@@ -45,10 +45,8 @@ public class StockServiceImpl implements StockService {
         //Check that the holding belongs to our user and delete it.
     }
 
-    public List<Stock> loadExistingPosition(HttpSession session) {
-        String username = (String)session.getAttribute("username");
-        List<User> users = userRepo.findByUsernameIgnoreCase(username);
-        List<Stock> stocks = stockRepo.findByUser(users.get(0));
+    public List<Stock> loadExistingPosition(User user) {
+        List<Stock> stocks = stockRepo.findByUser(user);
         return stocks;
     }
 }

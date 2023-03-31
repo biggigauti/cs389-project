@@ -20,5 +20,5 @@ public interface StockService {
 
     void deletePosition(String ticker, Float price, Float shares, User user);
 
-    List<Stock> loadExistingPosition(HttpSession session);
+    List<Stock> loadExistingPosition(User user);
 }
