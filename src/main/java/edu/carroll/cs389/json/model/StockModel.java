@@ -12,11 +12,9 @@ public class StockModel {
     private String ticker;
 
     @NotNull
-    @Size(max = 20, message = "Buy price can not be longer than 20 characters long")
     private Float price;
 
     @NotNull
-    @Size(max = 20, message = "Shares can not be longer than 20 characters long")
     private Float shares;
 
     public String getTicker() {
