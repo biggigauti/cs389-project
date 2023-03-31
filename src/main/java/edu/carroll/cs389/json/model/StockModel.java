@@ -2,15 +2,21 @@ package edu.carroll.cs389.json.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 
 public class StockModel {
     @NotNull
+    //Future-proof? NYSE currently allows up to 4. Nasdaq currently allows up to 5.
+    //What about ETFs and Index funds? Do they allow more?
+    @Size(max = 10, message = "Ticker symbol can not be longer than 10 characters long")
     private String ticker;
 
     @NotNull
+    @Size(max = 20, message = "Buy price can not be longer than 20 characters long")
     private Float price;
 
     @NotNull
+    @Size(max = 20, message = "Shares can not be longer than 20 characters long")
     private Float shares;
 
     public String getTicker() {
