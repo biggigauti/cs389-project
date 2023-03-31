@@ -1,5 +1,6 @@
 package edu.carroll.cs389.service;
 
+import edu.carroll.cs389.jpa.model.User;
 import jakarta.transaction.Transactional;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -78,5 +79,32 @@ public class UserServiceTest {
         userService.createUser(longUser);
 
         assertFalse(userService.userExists(longUser));
+    }
+
+    @Test
+    public void emptyUsername() {
+        final String emptyUser = "";
+
+        userService.createUser(emptyUser);
+
+        assertFalse(userService.userExists(emptyUser));
+    }
+
+    @Test
+    public void getUserTest() {
+        final String username = "testUser";
+
+        User user = new User();
+
+        user.setUsername("testUser");
+
+        userService.createUser(username);
+
+        assertEquals(user, userService.getUser("testUser"));
+    }
+
+    @Test
+    public void createNullUser() {
+        userService.createUser(null);
     }
 }

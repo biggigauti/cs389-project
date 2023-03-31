@@ -40,6 +40,12 @@ public class LoginController {
         return "login";
     }
 
+    @GetMapping("/logout")
+    public String logoutGet(HttpSession session) {
+        session.invalidate();
+        return "redirect:/login";
+    }
+
 
     /*
     Add HttpServletRequest to login post called req
@@ -51,7 +57,7 @@ public class LoginController {
     // PostMapping from the /login page.
     // The @Valid annotation and the BindingResult check for any errors
     @PostMapping("/login")
-    public String loginPost(@Valid @ModelAttribute UserForm userForm, BindingResult result, RedirectAttributes attrs, HttpSession session) {
+    public String loginPost(@Valid @ModelAttribute UserForm userForm, BindingResult result, HttpSession session) {
         // Reroute the user to the login page if @Valid and BindingResult find any errors.
         session.setAttribute("username", userForm.getUsername());
 
@@ -69,7 +75,6 @@ public class LoginController {
 
         // Attrs allows us to send information to the following page.
         // In this case we supply the following page with the user's username.
-        attrs.addAttribute("username", userForm.getUsername());
         log.info("loginPost: User '{}' was redirected to /portfolio.", userForm.getUsername());
 
         //If none of the conditions are met above, user exists, redirect to /portfolio page.
