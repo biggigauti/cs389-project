@@ -12,7 +12,8 @@ import jakarta.validation.constraints.Size;
  */
 public class UserForm {
     @NotNull
-    @Size(min = 6, message = "Username must be at least 6 characters long") //Modify later?
+    @Size(min = 6, message = "Username must be at least 6 characters long")
+    @Size(max = 20, message = "Username can not be longer than 20 characters long")
     private String username;
 
     public String getUsername() {
