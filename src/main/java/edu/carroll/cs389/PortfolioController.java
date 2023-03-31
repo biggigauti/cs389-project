@@ -35,23 +35,28 @@ public class PortfolioController {
 
     @GetMapping("/portfolio")
     public String index(HttpSession session, Model model) {
-        String username = (String)session.getAttribute("username");
-        User user = userService.getUser(username);
-        List<Stock> stocks = stockService.loadExistingPosition(session);
-        model.addAttribute("stocks", stocks);
-        return "portfolio";
+        if ((String)session.getAttribute("username") != null) {
+            String username = (String)session.getAttribute("username");
+            User user = userService.getUser(username);
+            List<Stock> stocks = stockService.loadExistingPosition(session);
+            model.addAttribute("stocks", stocks);
+            return "portfolio";
+        }
+        else {
+            return "redirect:/portfolio";
+        }
     }
 
 
     @PostMapping(path="/portfolio", consumes="application/json")
-    public void load(@Valid @RequestBody StockModel stockModel, HttpServletRequest req) {
-        log.info(stockModel.toString());
-
-        stockService.createPosition(
-            stockModel.getTicker(),
-            stockModel.getPrice(),
-            stockModel.getShares(),
-            userService.getUser((String)req.getSession().getAttribute("username"))
+    public void load(@Valid @RequestBody StockModel stockModel, HttpSession session) {
+        if ((String)session.getAttribute("username") != null) {
+            stockService.createPosition(
+                    stockModel.getTicker(),
+                    stockModel.getPrice(),
+                    stockModel.getShares(),
+                    userService.getUser((String)session.getAttribute("username"))
             );
+        }
     }
 }
