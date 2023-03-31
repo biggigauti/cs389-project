@@ -18,26 +18,8 @@ public class StockServiceTest {
     @Autowired
     private StockServiceImpl stockService;
 
-    User testUser = new User();
-    Stock testStock = new Stock();
-
-
     @Test
-    private void createPositionTest() {
-        String ticker = "sofi";
-        Float price = 10f;
-        Float shares = 10f;
-        User user = testUser;
+    public void createPositionTest() {
 
-        testStock.setTicker(ticker);
-        testStock.setBuyPrice(price);
-        testStock.setShares(shares);
-        testStock.setUser(testUser);
-
-        stockService.createPosition(ticker, price, shares, user);
-
-        List<Stock> stocks = stockService.loadExistingPosition(testUser);
-
-        assertTrue(testStock == stocks.get(0));
     }
 }

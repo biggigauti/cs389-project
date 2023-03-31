@@ -70,4 +70,13 @@ public class UserServiceTest {
 
         assertFalse(userService.userExists(shortUser));
     }
+
+    @Test
+    public void longUsername() {
+        final String longUser = "naaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaate";
+
+        userService.createUser(longUser);
+
+        assertFalse(userService.userExists(longUser));
+    }
 }

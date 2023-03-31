@@ -30,15 +30,19 @@ public class UserServiceImpl implements UserService {
      * @param username
      */
     public void createUser(String username) {
-        if (username == null) {
-            log.error("createUser: A username of null was submitted.");
+        if (username == null || username == "") {
+            log.error("createUser: A username of null or none was submitted.");
         }
 
         else if (username.length() < 6) {
-            log.error("createUser: User tried to insert username with less than 6 characters.");
+            log.error("createUser: User tried to insert a username less than 6 characters long");
         }
 
-        else if (username != null && username.length() >= 6) {
+        else if (username.length() > 20) {
+            log.error("createUser: User tried to insert a username more than 20 characters long");
+        }
+
+        else {
             final List<User> defaultUsers = loginRepo.findByUsernameIgnoreCase(username);
             // If there are no users with that username...
             if (defaultUsers.isEmpty()) {
