@@ -29,17 +29,20 @@ public class UserServiceImpl implements UserService {
      * Makes sure we always look everything up in a non-case-sensitive manner.
      * @param username
      */
-    public void createUser(String username) {
+    public boolean createUser(String username) {
         if (username == null || username == "") {
             log.error("createUser: A username of null or none was submitted.");
+            return false;
         }
 
         else if (username.length() < 6) {
             log.error("createUser: User tried to insert a username less than 6 characters long");
+            return false;
         }
 
         else if (username.length() > 20) {
             log.error("createUser: User tried to insert a username more than 20 characters long");
+            return false;
         }
 
         else {
@@ -50,6 +53,7 @@ public class UserServiceImpl implements UserService {
                 newUser.setUsername(username);
                 loginRepo.save(newUser);
             }
+            return true;
         }
     }
 

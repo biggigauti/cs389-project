@@ -23,7 +23,7 @@ public interface UserService {
      * we make a new record in the login table of the database.
      * @param username
      */
-    void createUser(String username);
+    boolean createUser(String username);
 
     /**
      * Get a User object when given a username.

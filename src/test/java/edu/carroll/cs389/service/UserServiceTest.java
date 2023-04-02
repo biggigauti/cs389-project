@@ -105,6 +105,6 @@ public class UserServiceTest {
 
     @Test
     public void createNullUser() {
-        userService.createUser(null);
+        assertFalse(userService.createUser(null));
     }
 }
