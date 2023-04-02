@@ -91,20 +91,96 @@ public class UserServiceTest {
     }
 
     @Test
+    public void createNullUser() {
+        assertFalse(userService.createUser(null));
+    }
+
+    @Test
+    public void createEmptyUser() {
+        assertFalse(userService.createUser(""));
+    }
+
+    @Test
+    public void createShortUser() {
+        final String shortUser = "nate";
+
+        assertFalse(userService.createUser(shortUser));
+    }
+
+    @Test
+    public void createLongUser() {
+        final String longUser = "naaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaate";
+
+        assertFalse(userService.createUser(longUser));
+    }
+
+    @Test
+    public void successfulUserTest() {
+        assertTrue(userService.createUser("birgir"));
+    }
+
+    @Test
     public void getUserTest() {
         final String username = "testUser";
 
         User user = new User();
 
-        user.setUsername("testUser");
+        user.setUsername(username);
 
         userService.createUser(username);
 
-        assertEquals(user, userService.getUser("testUser"));
+        assertEquals(user, userService.getUser(username));
     }
 
     @Test
-    public void createNullUser() {
-        assertFalse(userService.createUser(null));
+    public void getUserShortTest() {
+        final String username = "test";
+
+        User user = new User();
+
+        user.setUsername(username);
+
+        userService.createUser(username);
+
+        assertNull(userService.getUser(username));
+    }
+
+    @Test
+    public void getUserLongTest() {
+        final String username = "teeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeest";
+
+        User user = new User();
+
+        user.setUsername(username);
+
+        userService.createUser(username);
+
+        assertNull(userService.getUser(username));
+    }
+
+    @Test
+    public void getUserNullTest() {
+        final String username = null;
+
+        User user = new User();
+
+        user.setUsername(username);
+
+        userService.createUser(username);
+
+        assertNull(userService.getUser(username));
+    }
+
+    @Test
+    public void getUserEmptyTest() {
+        final String username = "";
+
+        User user = new User();
+
+        user.setUsername(username);
+
+        userService.createUser(username);
+
+        assertNull(userService.getUser(username));
     }
 }

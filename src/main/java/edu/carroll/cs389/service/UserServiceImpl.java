@@ -88,6 +88,10 @@ public class UserServiceImpl implements UserService {
     public User getUser(String username) {
         List<User> myUser = loginRepo.findByUsernameIgnoreCase(username);
 
+        if (myUser.isEmpty()) {
+            return null;
+        }
+
         return myUser.get(0);
     }
 }
