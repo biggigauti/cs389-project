@@ -7,7 +7,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 /**
  * The LoginRepository allows us to access data in the login table.
- *
  * To follow good practice, the LoginRepository will be accessed through a service layer
  * to separate business login from the actual data. The service is called 'UserService'.
  */
