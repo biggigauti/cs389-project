@@ -4,20 +4,24 @@ import java.util.Objects;
 import jakarta.persistence.*;
 
 /**
- * The Stocks class is a JPA model that interacts with our database. Rather than creating the
+ * The Stock class is a JPA model that interacts with our database. Rather than creating the
  * tables and rows ourselves, this class takes care of that and represents the table.
- * This table stores an entry's UID, userId associated with the user that owns this position,
+ * This table stores an entry's UID, User associated with this position,
  * the stock's ticker symbol, the buy price, and the amount of shares associated with the position.
  */
+
+//Entity simply represents a table stored in our database.
 @Entity
 @Table(name = "stock")
 public class Stock {
     private static final long serialVersionUID = 1L;
 
+    //GeneratedValue auto generates the id for us.
     @Id
     @GeneratedValue
     private Long id;
 
+    //Linking user to the User table
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;

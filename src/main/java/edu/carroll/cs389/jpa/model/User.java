@@ -10,11 +10,14 @@ import jakarta.persistence.*;
  * tables and rows ourselves, this class takes care of that and represents the table.
  * This table stores the user's UID and username.
  */
+
+//Entity simply represents a table stored in our database.
 @Entity
 @Table(name = "app_user")
 public class User {
     private static final long serialVersionUID = 1L;
 
+    //GeneratedValue auto generates the id for us.
     @Id
     @GeneratedValue
     private Long id;
@@ -22,6 +25,7 @@ public class User {
     @Column(name = "username", nullable = false, unique = true)
     private String username;
 
+    //Link to the stock table. Linking through "user".
     @OneToMany(mappedBy = "user")
     private Set<Stock> stocks;
 
