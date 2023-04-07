@@ -1,9 +1,7 @@
 package edu.carroll.cs389.service;
 
-import edu.carroll.cs389.jpa.model.Stock;
 import edu.carroll.cs389.jpa.model.User;
 import edu.carroll.cs389.jpa.repo.UserRepository;
-import edu.carroll.cs389.web.form.UserForm;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -11,8 +9,14 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 /**
- * The UserServiceImpl class is the implementation of our UserService interface.
- * This class includes two methods that provide the necessary logic to implement our user service.
+ * The UserServiceImpl class is the implementation of the UserService interface. Within this class
+ * we have all the business logic needed to operate our service layer.
+ *
+ * The current functionality allows us to create users, check if a user exists, and get
+ * a user object given their username.
+ *
+ * A @Service annotation is used to indicate to Spring that this class provides
+ * business functionalities.
  */
 @Service
 public class UserServiceImpl implements UserService {
@@ -25,9 +29,13 @@ public class UserServiceImpl implements UserService {
     }
 
     /**
-     * If the username provided does not already exist in the database, create a new user.
-     * Makes sure we always look everything up in a non-case-sensitive manner.
+     * The createUser function receives a username and ensures that the username given is not null,
+     * not empty, longer than 5 characters, and shorter than 20 characters. If all preliminary
+     * checks are passed, look the username up in the database and ensure that no duplicate
+     * username is found. If there is no duplicate username, save a new user to the database.
+     *
      * @param username
+     * @return boolean: Returns true/false based on ability to create the user.
      */
     public boolean createUser(String username) {
         if (username == null || username == "") {
@@ -58,10 +66,11 @@ public class UserServiceImpl implements UserService {
     }
 
     /**
-     * Checks if the user exists based on the username retrieved from the LoginForm.
-     * Return true if the user exists, return false if it doesn't.
-     * @param userForm - Data containing user login information, such as username.
-     * @return true if the user exists, false if the user does not exist.
+     * The userExists function receives a username and calls the loginRepo.findByUsernameIgnoreCase()
+     * function to check if a user with that username already exists.
+     *
+     * @param username
+     * @return boolean: Returns true/false based on the user existing or not.
      */
     public boolean userExists(String username) {
         log.info("validateUser: User '{}' tried to log in.", username);
@@ -69,7 +78,7 @@ public class UserServiceImpl implements UserService {
         List<User> users = loginRepo.findByUsernameIgnoreCase(username);
 
         // If the 'users' list returns 1 or more, the user exists. Return true.
-        if (users.size() > 1) {
+        if (users.size() >= 1) {
             log.info("validateUser: Username '{}' returned more than one record.", username);
             return true;
         }
@@ -80,14 +89,23 @@ public class UserServiceImpl implements UserService {
             return false;
         }
 
-        // Else if users.size() == 1 just return true
+        // Else return true
         log.info("validateUser: User '{}' successfully logged in.", username);
         return true;
     }
 
+    /**
+     * The getUser function receives a username parameter and returns the user object
+     * associated with that username.
+     *
+     * @param username
+     * @return User: Return the user if the username is valid. Null if not.
+     */
     public User getUser(String username) {
+        //Call loginRepo to find the user by their username
         List<User> myUser = loginRepo.findByUsernameIgnoreCase(username);
 
+        //If the user list is empty, return null
         if (myUser.isEmpty()) {
             return null;
         }
