@@ -7,6 +7,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <title>Portfolio Page</title>
 
+    <!--This style block was copied from the link above.-->
     <style>
         .modal {
             display: none; /* Hidden by default */
@@ -47,6 +48,7 @@
     </style>
 
     <script>
+        // All code down until the submitData() function was copied from the link above.
         // Get the modal
         window.onload = function() {
             var modal = document.getElementById("myModal");
@@ -75,7 +77,14 @@
             }
         };
 
+        /**
+         * submitData is called when the user clicks "submit" after entering their information
+         * in the modal popup.
+         *
+         * This method sends a post request to the "/portfolio" path.
+         */
         function submitData() {
+            // Initialize elements in java script
             const tickerField = document.getElementById("ticker").value;
             const priceField = document.getElementById("price").value;
             const sharesField = document.getElementById("shares").value;
@@ -86,9 +95,11 @@
                 shares: sharesField
             };
 
+            //post method
             fetch('http://localhost:8080/portfolio', {
                 method: 'POST',
                 headers: {
+                    //specify json
                     'Accept': 'application/json',
                     'Content-Type': 'application/json'
                 },
@@ -99,26 +110,13 @@
 
             //window.location.reload()
 
+            // Set timeout before reloading so the data has time to get saved to the database.
+            // Reload allows the stock information to be displayed instantly upon submission.
             setTimeout(function(){
                 window.location.reload();
             }, 200);
         }
 
-        /*
-        function addPosition() {
-            var table = document.getElementById("table");
-
-            var row = table.insertRow(-1);
-
-            var cell1 = row.insertCell(0);
-            var cell2 = row.insertCell(1);
-            var cell3 = row.insertCell(2);
-
-            cell1.innerHTML = "test";
-            cell2.innerHTML = "test2";
-            cell3.innerHTML = "test3";
-
- */
     </script>
 </head>
 <body>
@@ -129,6 +127,7 @@
         <th>Buy Price</th>
         <th>Shares</th>
     </tr>
+    <!--For each stock in the stocks model that is passed in, display ticker, buyPrice, and shares.-->
     <tr th:each="stock : ${stocks}">
         <td th:text="${stock.ticker}"></td>
         <td th:text="${stock.buyPrice}"></td>
@@ -138,6 +137,7 @@
 
 <a href="/logout">Logout</a>
 
+<!--Code below copied from the link at the top of this template.-->
 <!-- Trigger/Open The Modal -->
 <button id="myBtn">Open Modal</button>
 
