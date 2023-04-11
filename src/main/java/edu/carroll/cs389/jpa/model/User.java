@@ -4,6 +4,7 @@ import java.util.Objects;
 import java.util.Set;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotEmpty;
 
 /**
  * The Login class is a JPA model that interacts with our database. Rather than creating the

@@ -3,11 +3,18 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <title>Login Page</title>
+
+    <style>
+        .error {
+            color: red;
+        }
+    </style>
 </head>
 <body>
 
 <h1>Login</h1>
 <form action="#" th:action="@{/login}" th:object="${userForm}" method="post">
+    <p class="error" th:if="${#fields.hasErrors('username')}">Invalid Username. Minimum of 6 characters. Maximum of 20 characters.</p>
     <input type="text" th:field="*{username}" placeholder="Username"/><br/>
     <button type="submit">Login</button>
 </form>

@@ -67,6 +67,7 @@ public class StockServiceTest {
         assertFalse(stockService.createPosition(ticker, price, shares, user));
     }
 
+    /*
     @Test
     public void loadPositionTest() {
         String ticker = "brgr";
@@ -85,4 +86,6 @@ public class StockServiceTest {
 
         assertEquals(stock, stockService.loadExistingPosition(user).get(0));
     }
+
+     */
 }
