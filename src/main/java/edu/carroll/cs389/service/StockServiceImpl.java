@@ -40,13 +40,17 @@ public class StockServiceImpl implements StockService {
      * @param shares
      * @param user
      */
-    public void createPosition(String ticker, Float price, Float shares, User user) {
-        Stock newStock = new Stock();
-        newStock.setUser(user);
-        newStock.setTicker(ticker);
-        newStock.setBuyPrice(price);
-        newStock.setShares(shares);
-        stockRepo.save(newStock);
+    public boolean createPosition(String ticker, Float price, Float shares, User user) {
+        if (ticker != null && ticker != "" && price != null && shares != null && user != null) {
+            Stock newStock = new Stock();
+            newStock.setUser(user);
+            newStock.setTicker(ticker);
+            newStock.setBuyPrice(price);
+            newStock.setShares(shares);
+            stockRepo.save(newStock);
+            return true;
+        }
+        return false;
     }
 
     /**

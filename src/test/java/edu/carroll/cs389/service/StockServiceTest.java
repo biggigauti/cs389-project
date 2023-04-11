@@ -19,7 +19,70 @@ public class StockServiceTest {
     private StockServiceImpl stockService;
 
     @Test
-    public void createPositionTest() {
+    public void createSuccessfulPositionTest() {
+        String ticker = "brgr";
+        float price = 99f;
+        float shares = 99f;
+        User user = new User();
+        user.setUsername("birgir");
 
+        assertTrue(stockService.createPosition(ticker, price, shares, user));
+    }
+
+    @Test
+    public void createDuplicatePositionTest() {
+        String ticker = "brgr";
+        float price = 99f;
+        float shares = 99f;
+        User user = new User();
+        user.setUsername("birgir");
+
+        String ticker2 = "brgr";
+        float price2 = 99f;
+        float shares2 = 99f;
+
+        assertTrue(stockService.createPosition(ticker, price, shares, user));
+        assertTrue(stockService.createPosition(ticker2, price2, shares2, user));
+    }
+
+    @Test
+    public void createEmptyTickerPositionTest() {
+        String ticker = "";
+        float price = 99f;
+        float shares = 99f;
+        User user = new User();
+        user.setUsername("birgir");
+
+        assertFalse(stockService.createPosition(ticker, price, shares, user));
+    }
+
+    @Test
+    public void createNullTickerTest() {
+        String ticker = null;
+        float price = 99f;
+        float shares = 99f;
+        User user = new User();
+        user.setUsername("birgir");
+
+        assertFalse(stockService.createPosition(ticker, price, shares, user));
+    }
+
+    @Test
+    public void loadPositionTest() {
+        String ticker = "brgr";
+        float price = 99f;
+        float shares = 99f;
+        User user = new User();
+        user.setUsername("birgirTest");
+
+        stockService.createPosition(ticker, price, shares, user);
+
+        Stock stock = new Stock();
+        stock.setTicker(ticker);
+        stock.setBuyPrice(price);
+        stock.setShares(shares);
+        stock.setUser(user);
+
+        assertEquals(stock, stockService.loadExistingPosition(user).get(0));
     }
 }

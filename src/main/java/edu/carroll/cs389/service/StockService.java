@@ -28,7 +28,7 @@ public interface StockService {
      * @param shares
      * @param user
      */
-    void createPosition(String ticker, Float price, Float shares, User user);
+    boolean createPosition(String ticker, Float price, Float shares, User user);
 
     /**
      * The loadExistingPosition function's purpose is to receive the parameter show below,

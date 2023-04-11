@@ -8,6 +8,10 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import static org.junit.Assert.*;
 
+/**
+ * The UserServiceTest class tests the user service's methods to verify that everything works as it
+ * should, and we receive the expected output in the different happy, crappy, and crazy path cases.
+ */
 @Transactional
 @SpringBootTest
 public class UserServiceTest {
