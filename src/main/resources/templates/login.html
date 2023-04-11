@@ -7,7 +7,7 @@
 <body>
 
 <h1>Login</h1>
-<form action="#" th:action="@{/login}" th:object="${loginForm}" method="post">
+<form action="#" th:action="@{/login}" th:object="${userForm}" method="post">
     <input type="text" th:field="*{username}" placeholder="Username"/><br/>
     <button type="submit">Login</button>
 </form>
