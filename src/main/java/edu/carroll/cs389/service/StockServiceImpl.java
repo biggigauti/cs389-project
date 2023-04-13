@@ -48,8 +48,10 @@ public class StockServiceImpl implements StockService {
             newStock.setBuyPrice(price);
             newStock.setShares(shares);
             stockRepo.save(newStock);
+            log.info("createPosition: User '{}' successfully create a position for ticker '{}'", user.getUsername(), ticker);
             return true;
         }
+        log.info("createPosition: User '{}' failed to create a position for ticker '{}'", user.getUsername(), ticker);
         return false;
     }
 
@@ -63,6 +65,10 @@ public class StockServiceImpl implements StockService {
      */
     public List<Stock> loadExistingPosition(User user) {
         List<Stock> stocks = stockRepo.findByUser(user);
-        return stocks;
+        if (!stocks.isEmpty()) {
+            log.info("loadExistingPosition: Positions for user '{}' have been loaded", user.getUsername());
+            return stocks;
+        }
+        return null;
     }
 }
