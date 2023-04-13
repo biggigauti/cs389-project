@@ -39,7 +39,7 @@ public class UserServiceImpl implements UserService {
      */
     public boolean createUser(String username) {
         if (username == null || username == "") {
-            log.error("createUser: A username of null or none was submitted.");
+            log.error("createUser: A username of null or empty string was submitted");
             return false;
         }
 
@@ -60,6 +60,7 @@ public class UserServiceImpl implements UserService {
                 User newUser = new User();
                 newUser.setUsername(username);
                 loginRepo.save(newUser);
+                log.info("createUser: User '{}' has been created successfully", username);
             }
             return true;
         }
@@ -73,24 +74,24 @@ public class UserServiceImpl implements UserService {
      * @return boolean: Returns true/false based on the user existing or not.
      */
     public boolean userExists(String username) {
-        log.info("validateUser: User '{}' tried to log in.", username);
+        log.info("userExists: Username '{}' is being validated", username);
         // Always do the lookup in a case-insensitive manner (lower-casing the data).
         List<User> users = loginRepo.findByUsernameIgnoreCase(username);
 
         // If the 'users' list returns 1 or more, the user exists. Return true.
         if (users.size() >= 1) {
-            log.info("validateUser: Username '{}' returned more than one record.", username);
+            log.error("userExists: Username '{}' already exists", username);
             return true;
         }
 
         // If the 'users' list returns 0, the user does not exist. Return false.
         if (users.size() == 0) {
-            log.info("userExists: Username '{}' does not exist.", username);
+            log.info("userExists: Username '{}' does not exist", username);
             return false;
         }
 
         // Else return true
-        log.info("validateUser: User '{}' successfully logged in.", username);
+        log.info("validateUser: User '{}' has been successfully validated", username);
         return true;
     }
 
@@ -102,14 +103,16 @@ public class UserServiceImpl implements UserService {
      * @return User: Return the user if the username is valid. Null if not.
      */
     public User getUser(String username) {
+        log.info("getUser: User '{}' is being retrieved", username);
         //Call loginRepo to find the user by their username
         List<User> myUser = loginRepo.findByUsernameIgnoreCase(username);
 
-        //If the user list is empty, return null
         if (myUser.isEmpty()) {
+            log.info("getUser: User '{}' does not exist", username);
             return null;
         }
 
+        log.info("getUser: User '{}' was successfully retrieved", username);
         return myUser.get(0);
     }
 }
