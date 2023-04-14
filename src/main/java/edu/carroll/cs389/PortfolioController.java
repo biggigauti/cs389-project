@@ -46,16 +46,19 @@ public class PortfolioController {
      * @return portfolio page upon successful verification. login page upon unsuccessful verification.
      */
     @GetMapping("/portfolio")
-    public String index(HttpSession session, Model model) {
+    public String portfolioGet(HttpSession session, Model model) {
         // If session is invalid.
         if ((String)session.getAttribute("username") != null) {
             String username = (String)session.getAttribute("username");
+            //Get user from the username to load the user's stocks
             User user = userService.getUser(username);
             List<Stock> stocks = stockService.loadExistingPosition(user);
             model.addAttribute("stocks", stocks);
+            log.info("portfolioGet: Portfolio page has been loaded and user's positions have been loaded if they exist");
             return "portfolio";
         }
         else {
+            log.info("portfolioGet: User's session has expired and they have been redirected to the login page");
             return "redirect:/login";
         }
     }
@@ -70,7 +73,7 @@ public class PortfolioController {
      * @param session
      */
     @PostMapping(path="/portfolio", consumes="application/json")
-    public void load(@Valid @RequestBody StockModel stockModel, HttpSession session) {
+    public String portfolioPost(@Valid @RequestBody StockModel stockModel, HttpSession session) {
         // If session is invalid.
         if ((String)session.getAttribute("username") != null) {
             // Saves the information to database.
@@ -80,6 +83,12 @@ public class PortfolioController {
                     stockModel.getShares(),
                     userService.getUser((String)session.getAttribute("username"))
             );
+            log.info("portfolioPost: User '{}' has created a new position", session.getAttribute("username"));
+            return null;
+        }
+        else {
+            log.info("portfolioPost: User's session is invalid and has been redirected to the login page");
+            return "redirect:/login";
         }
     }
 }

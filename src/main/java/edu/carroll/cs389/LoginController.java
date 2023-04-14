@@ -1,20 +1,15 @@
 package edu.carroll.cs389;
 
-import edu.carroll.cs389.jpa.model.User;
-import edu.carroll.cs389.jpa.repo.UserRepository;
 import edu.carroll.cs389.service.UserService;
 import edu.carroll.cs389.web.form.UserForm;
-import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -42,6 +37,7 @@ public class LoginController {
     @GetMapping("/login")
     public String loginGet(Model model) {
         model.addAttribute("userForm", new UserForm());
+        log.info("loginGet: Login page loaded");
         return "login";
     }
 
@@ -54,6 +50,7 @@ public class LoginController {
      */
     @GetMapping("/logout")
     public String logoutGet(HttpSession session) {
+        log.info("logoutGet: Logout page loaded, user redirected to the login page, and session invalidated");
         session.invalidate();
         return "redirect:/login";
     }
@@ -79,7 +76,7 @@ public class LoginController {
 
         // Reroute the user to the login page if @Valid and BindingResult find any errors.
         if (result.hasErrors()) {
-            log.info("loginPost: User '{}' could not be validated.", userForm.getUsername());
+            log.info("loginPost: User '{}' could not be validated", userForm.getUsername());
             return "login";
         }
 
@@ -87,12 +84,13 @@ public class LoginController {
         // The user will now be logged in.
         if (!userService.userExists(userForm.getUsername())) {
             userService.createUser(userForm.getUsername());
+            log.info("loginPost: User '{}' has been created and redirected to the portfolio page", userForm.getUsername());
             return "redirect:/portfolio";
         }
 
         // Attrs allows us to send information to the following page.
         // In this case we supply the following page with the user's username.
-        log.info("loginPost: User '{}' was redirected to /portfolio.", userForm.getUsername());
+        log.info("loginPost: User '{}' successfully logged in and was redirected to the portfolio page", userForm.getUsername());
 
         //If none of the conditions are met above, user exists, redirect to /portfolio page.
         return "redirect:/portfolio";
