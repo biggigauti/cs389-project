@@ -69,6 +69,7 @@ public class StockServiceImpl implements StockService {
             log.info("loadExistingPosition: Positions for user '{}' have been loaded", user.getUsername());
             return stocks;
         }
+        log.info("loadExistingPosition: No positions exist for user '{}'", user.getUsername());
         return null;
     }
 }
