@@ -80,7 +80,7 @@ public class UserServiceImpl implements UserService {
 
         // If the 'users' list returns 1 or more, the user exists. Return true.
         if (users.size() >= 1) {
-            log.info("userExists: Username '{}' already exists", username);
+            log.warn("userExists: Username '{}' already exists", username);
             return true;
         }
 

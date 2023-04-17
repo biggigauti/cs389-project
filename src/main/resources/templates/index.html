@@ -3,12 +3,65 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <title>Home Page</title>
+
+    <style>
+        header {
+            background-color: white;
+        }
+
+        .header {
+            display:flex;
+            margin-right: 10px;
+        }
+
+        .brand,
+        .nav {
+            flex: 1;
+        }
+
+        .nav {
+            text-align: right;
+        }
+
+        li {
+            display: inline;
+            margin-left: 5px;
+        }
+
+        .body {
+            background-color: #f1f1f1;
+        }
+
+        .info {
+            display: flex;
+        }
+
+        .infoBlock {
+            flex: 1;
+        }
+    </style>
+
 </head>
-<body>
 
-    <p>Test</p>
+<!--Header resource https://ishadeed.com/article/website-headers-flexbox/ -->
+<header>
+    <div class="header">
+        <a class="brand" href="#"><img width="200px" th:src="@{/images/logo.png}"></a>
+        <nav class="nav">
+            <ol>
+                <li class="crumb"><a href="#">Home</a></li>
+                <li class="crumb"><a href="#">About</a></li>
+                <li class="crumb"><a href="#">Login</a></li>
+            </ol>
+        </nav>
+    </div>
+</header>
 
-    <a href="/login">Login</a>
-
+<body class="body">
+    <div class="info">
+        <p class="infoBlock">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+        <p class="infoBlock">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+        <p class="infoBlock">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+    </div>
 </body>
 </html>

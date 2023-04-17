@@ -51,7 +51,7 @@ public class StockServiceImpl implements StockService {
             log.info("createPosition: User '{}' successfully create a position for ticker '{}'", user.getUsername(), ticker);
             return true;
         }
-        log.info("createPosition: User '{}' failed to create a position for ticker '{}'", user.getUsername(), ticker);
+        log.warn("createPosition: User '{}' failed to create a position for ticker '{}'", user.getUsername(), ticker);
         return false;
     }
 
