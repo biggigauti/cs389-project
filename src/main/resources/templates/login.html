@@ -8,8 +8,40 @@
         .error {
             color: red;
         }
+
+        .header {
+            display:flex;
+            margin-right: 10px;
+        }
+
+        .brand,
+        .nav {
+            flex: 1;
+        }
+
+        .nav {
+            text-align: right;
+        }
+
+        li {
+            display: inline;
+            margin-left: 5px;
+        }
     </style>
 </head>
+
+<header>
+    <div class="header">
+        <a class="brand" href="#"><img width="200px" th:src="@{/images/logo.png}"></a>
+        <nav class="nav">
+            <ol>
+                <li class="crumb"><a href="#">Home</a></li>
+                <li class="crumb"><a href="/login">Login</a></li>
+            </ol>
+        </nav>
+    </div>
+</header>
+
 <body>
 
 <h1>Login</h1>

@@ -7,7 +7,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <title>Portfolio Page</title>
 
-    <!--This style block was copied from the link above.-->
+    <!--This style block was mostly copied from the link above.-->
     <style>
         .modal {
             display: none; /* Hidden by default */
@@ -44,6 +44,25 @@
             color: black;
             text-decoration: none;
             cursor: pointer;
+        }
+
+        .header {
+            display:flex;
+            margin-right: 10px;
+        }
+
+        .brand,
+        .nav {
+            flex: 1;
+        }
+
+        .nav {
+            text-align: right;
+        }
+
+        li {
+            display: inline;
+            margin-left: 5px;
         }
     </style>
 
@@ -119,6 +138,18 @@
 
     </script>
 </head>
+
+<header>
+    <div class="header">
+        <a class="brand" href="#"><img width="200px" th:src="@{/images/logo.png}"></a>
+        <nav class="nav">
+            <ol>
+                <li class="crumb"><a href="/logout">Logout</a></li>
+            </ol>
+        </nav>
+    </div>
+</header>
+
 <body>
 
 <table id = "table" border="1" style="border-collapse: collapse">
@@ -135,11 +166,9 @@
     </tr>
 </table>
 
-<a href="/logout">Logout</a>
-
 <!--Code below copied from the link at the top of this template.-->
 <!-- Trigger/Open The Modal -->
-<button id="myBtn">Open Modal</button>
+<button id="myBtn">Insert Stock Prosition</button>
 
 <!-- The Modal -->
 <div id="myModal" class="modal">
