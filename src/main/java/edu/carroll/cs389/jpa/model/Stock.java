@@ -76,11 +76,8 @@ public class Stock {
     }
 
     @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Stock stock = (Stock) o;
-        return Float.compare(stock.shares, shares) == 0 && Objects.equals(ticker, stock.ticker) && Objects.equals(buyPrice, stock.buyPrice);
+    public boolean equals(Object obj) {
+        return super.equals(obj);
     }
 
     @Override

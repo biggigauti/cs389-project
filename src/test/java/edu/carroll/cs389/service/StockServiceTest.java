@@ -17,6 +17,7 @@ public class StockServiceTest {
 
     @Autowired
     private StockServiceImpl stockService;
+    private UserServiceImpl userService;
 
     @Test
     public void createSuccessfulPositionTest() {
@@ -66,26 +67,4 @@ public class StockServiceTest {
 
         assertFalse(stockService.createPosition(ticker, price, shares, user));
     }
-
-    /*
-    @Test
-    public void loadPositionTest() {
-        String ticker = "brgr";
-        float price = 99f;
-        float shares = 99f;
-        User user = new User();
-        user.setUsername("birgirTest");
-
-        stockService.createPosition(ticker, price, shares, user);
-
-        Stock stock = new Stock();
-        stock.setTicker(ticker);
-        stock.setBuyPrice(price);
-        stock.setShares(shares);
-        stock.setUser(user);
-
-        assertEquals(stock, stockService.loadExistingPosition(user).get(0));
-    }
-
-     */
 }

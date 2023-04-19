@@ -33,10 +33,13 @@
     -->
 
     <!-- Reduce DB startup chatter -->
-    <logger name="org.hibernate" level="INFO" />
-    <logger name="com.zaxxer.hikari" level="INFO" />
+    <logger name="org.hibernate" level="INFO"/>
+    <logger name="com.zaxxer.hikari" level="INFO"/>
+    <!--Add this record to set logging for the edu.carroll.cs389 package-->
+    <!--Set level to "OFF" to turn this specific logging setting off-->
+    <logger name="edu.carroll.cs389" level="INFO"/>
 
-    <!-- Default level is INFO -->
+    <!-- Default level is INFO // Change the root level logging to display logs lower or higher-->
     <root level="INFO">
         <appender-ref ref="Console"/>
         <appender-ref ref="Logfile"/>
