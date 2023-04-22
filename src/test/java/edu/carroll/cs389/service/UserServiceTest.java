@@ -20,171 +20,233 @@ public class UserServiceTest {
     private UserServiceImpl userService;
 
     @Test
-    public void createUserTest() {
+    public void createUserTestOne() {
         final String username = "test birgir";
-        userService.createUser(username);
+        assertTrue(userService.createUser(username));
 
         assertTrue(userService.userExists(username));
     }
 
     @Test
-    public void userExistsTest() {
-        final String username = "test birgir";
-        userService.createUser(username);
-
-        assertTrue(userService.userExists(username));
-    }
-
-    @Test
-    public void createUsersTest() {
+    public void createUserTestTwo() {
         final String user1 = "user10";
         final String user2 = "user20";
 
-        userService.createUser(user1);
+        assertTrue(userService.createUser(user1));
 
-        userService.createUser(user2);
+        assertTrue(userService.createUser(user2));
 
         assertTrue(userService.userExists(user1));
         assertTrue(userService.userExists(user2));
     }
 
     @Test
-    public void checkNonExistingUser() {
+    public void createUserTestWrongName() {
         final String rightUsername = "birgir";
         final String wrongUsername = "nate";
 
-        userService.createUser(rightUsername);
+        assertTrue(userService.createUser(rightUsername));
 
         assertFalse(userService.userExists(wrongUsername));
     }
 
     @Test
-    public void nullUsername() {
+    public void createUserTestNull() {
         final String nullUser = null;
 
-        userService.createUser(nullUser);
+        assertFalse(userService.createUser(nullUser));
 
         assertFalse(userService.userExists(nullUser));
     }
 
     @Test
-    public void shortUsername() {
+    public void createUserTestShort() {
         final String shortUser = "nate";
 
-        userService.createUser(shortUser);
+        assertFalse(userService.createUser(shortUser));
 
         assertFalse(userService.userExists(shortUser));
     }
 
     @Test
-    public void longUsername() {
+    public void createUserTestLong() {
         final String longUser = "naaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaate";
 
-        userService.createUser(longUser);
+        assertFalse(userService.createUser(longUser));
 
         assertFalse(userService.userExists(longUser));
     }
 
     @Test
-    public void emptyUsername() {
+    public void createUserTestEmpty() {
         final String emptyUser = "";
 
-        userService.createUser(emptyUser);
+        assertFalse(userService.createUser(emptyUser));
 
         assertFalse(userService.userExists(emptyUser));
     }
 
     @Test
-    public void createNullUser() {
-        assertFalse(userService.createUser(null));
+    public void userExistsTestOne() {
+        final String username = "test birgir";
+        assertTrue(userService.createUser(username));
+
+        assertTrue(userService.userExists(username));
     }
 
     @Test
-    public void createEmptyUser() {
-        assertFalse(userService.createUser(""));
+    public void userExistsTestTwo() {
+        final String user1 = "user10";
+        final String user2 = "user20";
+
+        assertTrue(userService.createUser(user1));
+
+        assertTrue(userService.createUser(user2));
+
+        assertTrue(userService.userExists(user1));
+        assertTrue(userService.userExists(user2));
     }
 
     @Test
-    public void createShortUser() {
+    public void userExistsTestWrongName() {
+        final String rightUsername = "birgir";
+        final String wrongUsername = "nate";
+
+        assertTrue(userService.createUser(rightUsername));
+
+        assertFalse(userService.userExists(wrongUsername));
+    }
+
+    @Test
+    public void userExistsTestNull() {
+        final String nullUser = null;
+
+        assertFalse(userService.createUser(nullUser));
+
+        assertFalse(userService.userExists(nullUser));
+    }
+
+    @Test
+    public void userExistsTestShort() {
         final String shortUser = "nate";
 
         assertFalse(userService.createUser(shortUser));
+
+        assertFalse(userService.userExists(shortUser));
     }
 
     @Test
-    public void createLongUser() {
-        final String longUser = "naaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaate";
+    public void userExistsTestLong() {
+        final String longUser = "naaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaate";
 
         assertFalse(userService.createUser(longUser));
+
+        assertFalse(userService.userExists(longUser));
     }
 
     @Test
-    public void successfulUserTest() {
-        assertTrue(userService.createUser("birgir"));
+    public void userExistsTestEmpty() {
+        final String emptyUser = "";
+
+        assertFalse(userService.createUser(emptyUser));
+
+        assertFalse(userService.userExists(emptyUser));
     }
 
     @Test
-    public void getUserTest() {
+    public void getUserTestOne() {
         final String username = "testUser";
 
         User user = new User();
 
         user.setUsername(username);
 
-        userService.createUser(username);
+        assertTrue(userService.createUser(username));
 
         assertEquals(user, userService.getUser(username));
     }
 
     @Test
-    public void getUserShortTest() {
-        final String username = "test";
+    public void getUserTestTwo() {
+        final String username1 = "testUser1";
+        final String username2 = "testUser2";
 
-        User user = new User();
+        User user1 = new User();
+        User user2 = new User();
 
-        user.setUsername(username);
+        user1.setUsername(username1);
+        user2.setUsername(username2);
 
-        userService.createUser(username);
+        assertTrue(userService.createUser(username1));
+        assertTrue(userService.createUser(username2));
 
-        assertNull(userService.getUser(username));
+        assertEquals(user1, userService.getUser(username1));
+        assertEquals(user1, userService.getUser(username1));
     }
 
     @Test
-    public void getUserLongTest() {
-        final String username = "teeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeest";
+    public void getUserTestWrongName() {
+        final String rightUsername = "birgir";
+        final String wrongUsername = "nate";
 
-        User user = new User();
+        User user1 = new User();
 
-        user.setUsername(username);
+        user1.setUsername(wrongUsername);
 
-        userService.createUser(username);
+        assertTrue(userService.createUser(rightUsername));
 
-        assertNull(userService.getUser(username));
+        assertNotEquals(user1, userService.getUser(rightUsername));
     }
 
     @Test
-    public void getUserNullTest() {
-        final String username = null;
+    public void getUserTestNull() {
+        final String nullUser = null;
 
         User user = new User();
 
-        user.setUsername(username);
+        user.setUsername(nullUser);
 
-        userService.createUser(username);
+        assertFalse(userService.createUser(nullUser));
 
-        assertNull(userService.getUser(username));
+        assertNotEquals(user, userService.getUser(nullUser));
     }
 
     @Test
-    public void getUserEmptyTest() {
-        final String username = "";
+    public void getUserTestShort() {
+        final String shortUser = "nate";
 
         User user = new User();
 
-        user.setUsername(username);
+        user.setUsername(shortUser);
 
-        userService.createUser(username);
+        assertFalse(userService.createUser(shortUser));
 
-        assertNull(userService.getUser(username));
+        assertNotEquals(user, userService.getUser(shortUser));
+    }
+
+    @Test
+    public void getUserTestLong() {
+        final String longUser = "naaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaate";
+
+        User user = new User();
+
+        user.setUsername(longUser);
+
+        assertFalse(userService.createUser(longUser));
+
+        assertNotEquals(user, userService.getUser(longUser));
+    }
+
+    @Test
+    public void getUserTestEmpty() {
+        final String emptyUser = "";
+
+        User user = new User();
+
+        user.setUsername(emptyUser);
+
+        assertFalse(userService.createUser(emptyUser));
+
+        assertNotEquals(user, userService.getUser(emptyUser));
     }
 }

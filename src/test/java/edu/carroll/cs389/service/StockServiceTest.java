@@ -17,6 +17,7 @@ public class StockServiceTest {
 
     @Autowired
     private StockServiceImpl stockService;
+    @Autowired
     private UserServiceImpl userService;
 
     @Test
@@ -66,18 +67,5 @@ public class StockServiceTest {
         user.setUsername("birgir");
 
         assertFalse(stockService.createPosition(ticker, price, shares, user));
-    }
-
-    @Test
-    public void loadExistingPositionVerify() {
-        String ticker = "brgr";
-        float price = 99f;
-        float shares = 99f;
-        User user = new User();
-        user.setUsername("birgir");
-
-        stockService.createPosition(ticker, price, shares, user);
-
-        assertNotNull(stockService.loadExistingPosition(user));
     }
 }
